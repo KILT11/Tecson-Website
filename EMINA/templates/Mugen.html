@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>EMINA</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <header>
+        Welcome To The World EMINA
+    </header>
+
+    <nav>
+        <a href="{{ url_for('Home') }}" id="home-link">Home</a>
+        <a href="{{ url_for('Movie') }}">Movies</a>
+        <a href="{{ url_for('Series') }}">TV Series</a>
+        <a href="{{ url_for('Most') }}">Most Popular</a>
+        <a href="{{ url_for('About') }}">About Us</a>
+        <div class="search-bar">
+            <input type="text" id="search-input" placeholder="Search anime movies and series..." />
+            <button id="search-button">Search</button>
+        </div>
+        <div class="search-results" id="search-results"></div>
+        <p class="no-results" id="no-results">No results found.</p>
+    </nav>
+
+      <h2> Demon Slayer: Kimetsu no Yaiba - The Movie: Mugen Train</h2>
+
+
+<section>
+        <h2>Episdoe 1: Mugen Train</h2>
+       <p> Tanjiro Kamado, along with his sister Nezuko (who is a demon but fights alongside him), Zenitsu Agatsuma, and
+        Inosuke Hashibira, board the Mugen Train. They are accompanying Kyojuro Rengoku, the Flame Hashira
+        (one of the highest-ranking Demon Slayer swordsmen), to investigate a series of mysterious disappearances. On the train,
+        they encounter Enmu, Lower Rank One of the Twelve Kizuki (the most powerful demons under Muzan Kibutsuji). Enmu ha
+        s a sinister plan to plunge the passengers into deep sleep and destroy their spiritual cores, thus incapacitating them.
+        Enmu's Blood Demon Art allows him to manipulate dreams. The Demon Slayers are trapped inillusory dream worlds, where they
+        experience their deepest desires and regrets. Tanjiro, for instance, dreams of reuniting with his deceased family.
+        Tanjiro, with Nezuko's help, manages to break free from the dream state. He then works to awaken his comrades. Tanjiro
+        and Inosuke engage in a fierce battle with Enmu. Enmu reveals that he has fused himself with the train itself, making him
+        a formidable and difficult opponent to defeat. They eventually manage to sever Enmu's neck, but the train is still out of control.
+        As the immediate threat of Enmu subsides, a new and even greater danger emerges: Akaza, Upper Rank Three of the Twelve Kizuki,
+        appears. Akaza seeks to challenge Rengoku, impressed by his immense power, and offers to turn him into a demon. Rengoku refuses
+        Akaza's offer and engages him in a devastating battle to protect the passengers. Despite his incredible strength and skill,
+        Rengoku is ultimately mortally wounded by Akaza. Rengoku's unwavering resolve and sacrifice leave a profound impact on Tanjiro,
+        Inosuke, and Zenitsu. He imparts his wisdom and encourages them to continue their path as Demon Slayers. Akaza flees as the sun
+        begins to rise, escaping the only weakness of demons. The film concludes with the Demon Slayers mourning Rengoku's death and
+        grappling with the heavy loss, while also honoring his bravery.</p>
+</section>
+
+        <div class="episode-links">
+            <a href="{{ url_for('Mugen') }}">1</a>
+        </div>
+
+    <footer>
+        @2025 EMINA, Dive into the vibrant world of Anime.
+    </footer>
+</body>
+</html>

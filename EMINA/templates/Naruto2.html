@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>EMINA</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <header>
+        Welcome To The World EMINA
+    </header>
+
+    <nav>
+        <a href="{{ url_for('Home') }}" id="home-link">Home</a>
+        <a href="{{ url_for('Movie') }}">Movies</a>
+        <a href="{{ url_for('Series') }}">TV Series</a>
+        <a href="{{ url_for('Most') }}">Most Popular</a>
+        <a href="{{ url_for('About') }}">About Us</a>
+        <div class="search-bar">
+            <input type="text" id="search-input" placeholder="Search anime movies and series..." />
+            <button id="search-button">Search</button>
+        </div>
+        <div class="search-results" id="search-results"></div>
+        <p class="no-results" id="no-results">No results found.</p>
+    </nav>
+        <h2>Naruto</h2>
+    <section>
+        <h2>Episode 2: My Name is Konohamaru!</h2>
+        <p>Naruto has now graduated from the Ninja Academy. He encounters Konohamaru, who is the grandson of the Third Hokage.
+            Konohamaru seeks to defeat his grandfather to establish his own identity. Naruto, having just graduated from the Ninja
+            Academy, finds common ground with Konohamaru in their shared desire for recognition, and agrees to mentor him.
+            The episode delves into themes of identity and the struggle to be acknowledged as an individual.</p>
+    </section>
+
+        <div class="episode-links">
+            <a href="{{ url_for('Naruto') }}">1</a>
+            <a href="{{ url_for('Naruto2') }}">2</a>
+        </div>
+
+    <h2>Next Episode will be uploaded every week</h2>
+
+    <footer>
+        @2025 EMINA, Dive into the vibrant world of Anime.
+    </footer>
+</body>
+</html>

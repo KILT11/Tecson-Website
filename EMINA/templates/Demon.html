@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>EMINA</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <header>
+        Welcome To The World ENIMA
+    </header>
+
+    <nav>
+        <a href="{{ url_for('Home') }}" id="home-link">Home</a>
+        <a href="{{ url_for('Movie') }}">Movies</a>
+        <a href="{{ url_for('Series') }}">TV Series</a>
+        <a href="{{ url_for('Most') }}">Most Popular</a>
+        <a href="{{ url_for('About') }}">About Us</a>
+        <div class="search-bar">
+            <input type="text" id="search-input" placeholder="Search anime movies and series..." />
+            <button id="search-button">Search</button>
+        </div>
+        <div class="search-results" id="search-results"></div>
+        <p class="no-results" id="no-results">No results found.</p>
+    </nav>
+        <h2>Demon Slayer</h2>
+    <section>
+        <h2>Episode 1: Cruelty</h2>
+       <p>Tanjiro Kamado, a kind-hearted young man who lives with his family in the mountains and sells charcoal for a living.
+        One day, Tanjiro returns home to find his family brutally murdered, with only his sister Nezuko surviving, but having
+        been turned into a demon. Tanjiro is shocked and desperate to save her. During a confrontation with Giyu Tomioka, a
+        demon slayer, Tanjiro shows his determination and potential, leading Giyu to direct him to a former demon slayer for
+        training. The episode ends with Tanjiro beginning his journey to find a way to turn Nezuko back into a human and
+        avenge his family.</p>
+    </section>
+
+        <div class="episode-links">
+            <a href="{{ url_for('Demon') }}">1</a>
+            <a href="{{ url_for('Demon2') }}">2</a>
+        </div>
+
+    <h2>Next Episode will be uploaded every week</h2>
+
+    <footer>
+        @2025 EMINA, Dive into the vibrant world of Anime.
+    </footer>
+</body>
+</html>

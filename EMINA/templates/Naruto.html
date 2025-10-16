@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>EMINA</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <header>
+        Welcome To The World EMINA
+    </header>
+
+    <nav>
+        <a href="{{ url_for('Home') }}" id="home-link">Home</a>
+        <a href="{{ url_for('Movie') }}">Movies</a>
+        <a href="{{ url_for('Series') }}">TV Series</a>
+        <a href="{{ url_for('Most') }}">Most Popular</a>
+        <a href="{{ url_for('About') }}">About Us</a>
+        <div class="search-bar">
+            <input type="text" id="search-input" placeholder="Search anime movies and series..." />
+            <button id="search-button">Search</button>
+        </div>
+        <div class="search-results" id="search-results"></div>
+        <p class="no-results" id="no-results">No results found.</p>
+    </nav>
+        <h2>Naruto</h2>
+    <section>
+        <h2>Episode 1: Naruto Uzumaki!</h2>
+        <p>Naruto Uzumaki, a mischievous and often lonely 12-year-old ninja, is seen causing trouble in the Hidden Leaf Village.
+            He's notorious for his pranks, including defacing the Hokage Rock monument.After failing to graduate from the Ninja Academy,
+            Naruto is apprehended by his teacher, Iruka Umino. Naruto is then tricked by a rogue ninja named Mizuki into stealing a
+            forbidden scroll. When Iruka finds Naruto with the scroll, Mizuki reveals the truth about the Nine-Tailed Fox demon
+            sealed within him, explaining the villagers' ostracization. Iruka defends Naruto, relating to his loneliness, and Naruto,
+            to protect Iruka, uses the Shadow Clone Jutsu to defeat Mizuki. Finally, Iruka acknowledges Naruto's strength and allows
+            him to graduate.</p>
+    </section>
+
+        <div class="episode-links">
+            <a href="{{ url_for('Naruto') }}">1</a>
+            <a href="{{ url_for('Naruto2') }}">2</a>
+        </div>
+
+    <h2>Next Episode will be uploaded every week</h2>
+
+    <footer>
+        @2025 EMINA, Dive into the vibrant world of Anime.
+    </footer>
+</body>
+</html>

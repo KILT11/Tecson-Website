@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>EMINA</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <header>
+        Welcome To The World ENIMA
+    </header>
+
+    <nav>
+        <a href="{{ url_for('Home') }}" id="home-link">Home</a>
+        <a href="{{ url_for('Movie') }}">Movies</a>
+        <a href="{{ url_for('Series') }}">TV Series</a>
+        <a href="{{ url_for('Most') }}">Most Popular</a>
+        <a href="{{ url_for('About') }}">About Us</a>
+        <div class="search-bar">
+            <input type="text" id="search-input" placeholder="Search anime movies and series..." />
+            <button id="search-button">Search</button>
+        </div>
+        <div class="search-results" id="search-results"></div>
+        <p class="no-results" id="no-results">No results found.</p>
+    </nav>
+        <h2>Bleach</h2>
+    <section>
+        <h2>Episdoe 2: A Shinigami's Work</h2>
+       <p>  Ichigo waking up to find his home damaged from the previous night's Hollow attack and his family seemingly
+            oblivious to the true events. Ichigo is surprised to find Rukia enrolled as a transfer student at his school,
+            where she explains her predicament: she's stuck in a temporary human body and needs Ichigo to cover her Soul
+            Reaper duties since he absorbed most of her powers. Despite Ichigo's initial reluctance, Rukia forces his soul
+            out of his body to demonstrate the gravity of the situation. This leads to Ichigo's first Soul Reaper duty,
+            where he witnesses a Plus being attacked by a Hollow and ultimately steps in to defeat it, sending the Plus
+            to the Soul Society. The episode also introduces Orihime Inoue, one of Ichigo's classmates, and hints at
+            her connection to the supernatural, as her deceased brother begins his transformation into a Hollow.</p>
+    </section>
+
+        <div class="episode-links">
+            <a href="{{ url_for('Bleach') }}">1</a>
+            <a href="{{ url_for('Bleach2') }}">2</a>
+        </div>
+
+    <h2>Next Episode will be uploaded every week</h2>
+
+    <footer>
+        @2025 EMINA, Dive into the vibrant world of Anime.
+    </footer>
+</body>
+</html>

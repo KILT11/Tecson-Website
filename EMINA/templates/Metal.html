@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>EMINA</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <header>
+        Welcome To The World EMINA
+    </header>
+
+    <nav>
+        <a href="{{ url_for('Home') }}" id="home-link">Home</a>
+        <a href="{{ url_for('Movie') }}">Movies</a>
+        <a href="{{ url_for('Series') }}">TV Series</a>
+        <a href="{{ url_for('Most') }}">Most Popular</a>
+        <a href="{{ url_for('About') }}">About Us</a>
+        <div class="search-bar">
+            <input type="text" id="search-input" placeholder="Search anime movies and series..." />
+            <button id="search-button">Search</button>
+        </div>
+        <div class="search-results" id="search-results"></div>
+        <p class="no-results" id="no-results">No results found.</p>
+    </nav>
+        <h2>Fullmetal Alchemist</h2>
+    <section>
+        <h2>Episode 1: Those Who Challenge the Sun</h2>
+       <p>Elric brothers, Edward and Alphonse, as they attempt a forbidden alchemical ritual: human transmutation.
+        Driven by their desire to resurrect their deceased mother, Trisha, the brothers tragically fail, resulting
+        in severe consequences. Edward loses his left leg, and Alphonse loses his entire body, his soul bound to a
+        suit of armor by Edward's sacrifice of his right arm. This devastating experience sets the stage for their
+        journey to uncover the secrets of the Philosopher's Stone, hoping it will restore their bodies and undo
+        the damage caused by their alchemical transgression.</p>
+    </section>
+
+        <div class="episode-links">
+            <a href="{{ url_for('Metal') }}">1</a>
+            <a href="{{ url_for('Metal2') }}">2</a>
+        </div>
+
+    <h2>Next Episode will be uploaded every week</h2>
+
+    <footer>
+        @2025 EMINA, Dive into the vibrant world of Anime.
+    </footer>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>EMINA</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <header>
+        Welcome To The World EMINA
+    </header>
+
+    <nav>
+        <a href="{{ url_for('Home') }}" id="home-link">Home</a>
+        <a href="{{ url_for('Movie') }}">Movies</a>
+        <a href="{{ url_for('Series') }}">TV Series</a>
+        <a href="{{ url_for('Most') }}">Most Popular</a>
+        <a href="{{ url_for('About') }}">About Us</a>
+        <div class="search-bar">
+            <input type="text" id="search-input" placeholder="Search anime movies and series..." />
+            <button id="search-button">Search</button>
+        </div>
+        <div class="search-results" id="search-results"></div>
+        <p class="no-results" id="no-results">No results found.</p>
+    </nav>
+        <h2>Dragon Ball Super: Super Hero</h2>
+    <section>
+        <h2>Episdoe 1: Super Hero</h2>
+       <p> Gohan and Piccolo as they confront a revived Red Ribbon Army, which has created powerful new androids,
+        Gamma 1 and Gamma 2, seeking revenge against Goku and his allies; as Piccolo infiltrates their base and
+        uncovers their plans, Gohan and Piccolo undergo new transformations, with Gohan achieving his "Beast"
+        form and Piccolo unlocking "Orange Piccolo," to combat the androids and the Red Ribbon Army's ultimate
+        weapon, a monstrous bio-android called Cell Max, leading to an intense battle that showcases Gohan's
+        re-emergence as a formidable fighter and the next generation of Z Fighters stepping up to protect the Earth.</p>
+    </section>
+
+        <div class="episode-links">
+            <a href="{{ url_for('SuperHero') }}">1</a>
+        </div>
+
+    <footer>
+        @2025 EMINA, Dive into the vibrant world of Anime.
+    </footer>
+</body>
+</html>

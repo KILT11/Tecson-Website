@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <header>
+        Welcome To The World EMINA
+    </header>
+
+    <nav>
+        <a href="{{ url_for('Home') }}" id="home-link">Home</a>
+        <a href="{{ url_for('Movie') }}">Movies</a>
+        <a href="{{ url_for('Series') }}">TV Series</a>
+        <a href="{{ url_for('Most') }}">Most Popular</a>
+        <a href="{{ url_for('About') }}">About Us</a>
+        <div class="search-bar">
+            <input type="text" id="search-input" placeholder="Search anime movies and series..." />
+            <button id="search-button">Search</button>
+        </div>
+        <div class="search-results" id="search-results"></div>
+        <p class="no-results" id="no-results">No results found.</p>
+    </nav>
+    <h2>Attack On Titan</h2>
+    <section>
+        <h2>Episde 1: To You, in 2000 Years: The Fall of Shiganshina, Part 1</h2>
+        <p>Eren Jaeger, his adoptive sister Mikasa Ackerman, and their friend Armin Arlert, living in the town of Shiganshina, located within Wall Maria. The episode establishes the world where humanity resides within giant walls to protect themselves from Titans, giant humanoid creatures that devour humans.
+
+The episode takes a dramatic turn when the Colossal Titan suddenly appears, breaching Wall Maria and allowing other Titans to enter. During the chaos, Eren witnesses his mother being eaten by a Titan. This horrific event fuels Eren's rage and desire for revenge against the Titans, setting the stage for the series' main conflict.</p>
+    </section>
+
+        <div class="episode-links">
+            <a href="{{ url_for('Attack') }}">1</a>
+            <a href="{{ url_for('Attack2') }}">2</a>
+        </div>
+    <h2>Next Episode will be uploaded every week</h2>
+
+    <footer>
+        @2025 EMINA, Dive into the vibrant world of Anime.
+    </footer>
+</body>
+</html>

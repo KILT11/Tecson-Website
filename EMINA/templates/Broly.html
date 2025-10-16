@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>EMINA</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <header>
+        Welcome To The World EMINA
+    </header>
+
+    <nav>
+        <a href="{{ url_for('Home') }}" id="home-link">Home</a>
+        <a href="{{ url_for('Movie') }}">Movies</a>
+        <a href="{{ url_for('Series') }}">TV Series</a>
+        <a href="{{ url_for('Most') }}">Most Popular</a>
+        <a href="{{ url_for('About') }}">About Us</a>
+        <div class="search-bar">
+            <input type="text" id="search-input" placeholder="Search anime movies and series..." />
+            <button id="search-button">Search</button>
+        </div>
+        <div class="search-results" id="search-results"></div>
+        <p class="no-results" id="no-results">No results found.</p>
+    </nav>
+        <h2>Dragon Ball Super: Broly</h2>
+    <section>
+        <h2>Episdoe 1: Broly</h2>
+       <p> Broly, making him a canonical character in the Dragon Ball universe. The film delves into the history of the Saiyans,
+        revealing that King Vegeta, fearing Broly's immense power, exiles him to Planet Vampa. Years later, Frieza learns of Broly
+        and his father, Paragus, and recruits them to defeat Goku and Vegeta. Cheelai and Lemo, members of Frieza's army, befriend
+        Broly and steal the remote that Paragus uses to control him. Goku and Vegeta encounter Broly, and a fierce battle ensues.
+        Broly's power and adaptability prove to be a significant challenge, even for Goku and Vegeta in their Super Saiyan God and
+        Super Saiyan Blue forms. To counter Broly's overwhelming strength, Goku and Vegeta attempt fusion, eventually becoming Gogeta.
+        Gogeta and Broly engage in a次元-shattering battle, with Gogeta ultimately overpowering Broly. However, before Gogeta can
+        deliver a final blow, Cheelai and Lemo use the Dragon Balls to wish Broly back to Vampa. In the aftermath, Goku visits Broly
+        on Vampa, expressing his desire to train with him and help him control his power.</p>
+    </section>
+
+        <div class="episode-links">
+            <a href="{{ url_for('Broly') }}">1</a>
+        </div>
+
+
+    <footer>
+        @2025 EMINA, Dive into the vibrant world of Anime.
+    </footer>
+</body>
+</html>

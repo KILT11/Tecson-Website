@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EMINA</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <header id="top">
+        Welcome To The World EMINA
+    </header>
+
+    <nav>
+        <a href="{{ url_for('Home') }}" id="home-link">Home</a>
+        <a href="{{ url_for('Movie') }}">Movies</a>
+        <a href="{{ url_for('Series') }}">TV Series</a>
+        <a href="{{ url_for('Most') }}">Most Popular</a>
+        <a href="{{ url_for('About') }}">About Us</a>
+    </nav>
+
+    <section id="home-section">
+        <h2>Hello, Ottaku!</h2>
+        <p>Welcome to <span>Emina</span>, your premier destination for all things anime.</p>
+        <div class="search-bar">
+            <input type="text" id="search-input" placeholder="Search anime movies and series...">
+            <button id="search-button">Search</button>
+        </div>
+
+        <div class="anime-grid">
+            <div class="anime-grid-item">
+                <a href="{{ url_for('Attack') }}"><img src="{{ url_for('static', filename='attack.jpg') }}" alt="Attack on Titan"></a>
+                <a href="{{ url_for('Attack') }}">Attack on Titan</a>
+            </div>
+            <div class="anime-grid-item">
+               <a href="{{ url_for('Naruto') }}"><img src="{{ url_for('static', filename='naruto.jpg') }}" alt="Naruto"></a>
+               <a href="{{ url_for('Naruto') }}">Naruto</a>
+            </div>
+            <div class="anime-grid-item">
+                <a href="{{ url_for('OnePiece') }}"><img src="{{ url_for('static', filename='One.jpg') }}" alt="One Piece"></a>
+                <a href="{{ url_for('OnePiece') }}">One Piece</a>
+            </div>
+            <div class="anime-grid-item">
+                <a href="{{ url_for('Demon') }}"><img src="{{ url_for('static', filename='demon.jpg') }}" alt="Demon Slayer"></a>
+                <a href="{{ url_for('Demon') }}">Demon Slayer</a>
+            </div>
+            <div class="anime-grid-item">
+                <a href="{{ url_for('Metal') }}"><img src="{{ url_for('static', filename='metal.jpg') }}" alt="Fullmetal Alchemist"></a>
+                <a href="{{ url_for('Metal') }}">Fullmetal Alchemist</a>
+            </div>
+            <div class="anime-grid-item">
+                <a href="{{ url_for('Bleach') }}"><img src="{{ url_for('static', filename='bleach.jpg') }}" alt="Bleach"></a>
+                <a href="{{ url_for('Bleach') }}">Bleach</a>
+            </div>
+            <div class="anime-grid-item">
+                <a href="{{ url_for('Broly') }}"><img src="{{ url_for('static', filename='dragon.jpg') }}" alt="Dragon Ball Super"></a>
+                <a href="{{ url_for('Broly') }}">Dragon Ball Super: Broly</a>
+            </div>
+            <div class="anime-grid-item">
+                <a href="{{ url_for('SuperHero') }}"><img src="{{ url_for('static', filename='Drag.jpg') }}" alt="Dragon Ball Super"></a>
+                <a href="{{ url_for('SuperHero') }}">Dragon Ball Super: Super Hero</a>
+            </div>
+            <div class="anime-grid-item">
+                <a href="{{ url_for('Mugen') }}"><img src="{{ url_for('static', filename='Mdemon.jpg') }}" alt="Demon Slayer"></a>
+                <a href="{{ url_for('Mugen') }}">Demon Slayer: Kimetsu no Yaiba - The Movie: Mugen Train</a>
+            </div>
+        </div>
+        <div class="search-results" id="search-results"></div>
+        <p class="no-results" id="no-results">No results found.</p>
+    </section>
+
+    <footer>
+        @2025 EMINA, Dive into the vibrant world of Anime.
+    </footer>
+</body>
+</html>

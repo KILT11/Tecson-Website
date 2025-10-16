@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>EMINA</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <header>
+        Welcome To The World ENIMA
+    </header>
+
+    <nav>
+        <a href="{{ url_for('Home') }}" id="home-link">Home</a>
+        <a href="{{ url_for('Movie') }}">Movies</a>
+        <a href="{{ url_for('Series') }}">TV Series</a>
+        <a href="{{ url_for('Most') }}">Most Popular</a>
+        <a href="{{ url_for('About') }}">About Us</a>
+        <div class="search-bar">
+            <input type="text" id="search-input" placeholder="Search anime movies and series..." />
+            <button id="search-button">Search</button>
+        </div>
+        <div class="search-results" id="search-results"></div>
+        <p class="no-results" id="no-results">No results found.</p>
+    </nav>
+        <h2>Bleach</h2>
+    <section>
+        <h2>Episode 1: The Day I Became a Shinigami</h2>
+       <p> Ichigo Kurosaki, a 15-year-old with the ability to see ghosts. His life takes a dramatic turn when he encounters
+            Rukia Kuchiki, a Soul Reaper, who is injured while battling a Hollow, a monstrous spirit that devours souls.
+            To save his family and defeat the Hollow, Ichigo reluctantly accepts Rukia's offer to temporarily take on her
+            Soul Reaper powers. In the process, he unexpectedly absorbs almost all of her spiritual energy, transforming
+            him into a powerful, albeit substitute, Soul Reaper. The episode concludes with Ichigo defeating the Hollow
+            and beginning his unexpected journey into the world of Soul Reapers and the supernatural.</p>
+    </section>
+
+        <div class="episode-links">
+            <a href="{{ url_for('Bleach') }}">1</a>
+            <a href="{{ url_for('Bleach2') }}">2</a>
+        </div>
+
+    <h2>Next Episode will be uploaded every week</h2>
+
+    <footer>
+        @2025 EMINA, Dive into the vibrant world of Anime.
+    </footer>
+</body>
+</html>

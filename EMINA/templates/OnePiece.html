@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>EMINA</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <header>
+        Welcome To The World EMINA
+    </header>
+
+    <nav>
+        <a href="{{ url_for('Home') }}" id="home-link">Home</a>
+        <a href="{{ url_for('Movie') }}">Movies</a>
+        <a href="{{ url_for('Series') }}">TV Series</a>
+        <a href="{{ url_for('Most') }}">Most Popular</a>
+        <a href="{{ url_for('About') }}">About Us</a>
+        <div class="search-bar">
+            <input type="text" id="search-input" placeholder="Search anime movies and series..." />
+            <button id="search-button">Search</button>
+        </div>
+        <div class="search-results" id="search-results"></div>
+        <p class="no-results" id="no-results">No results found.</p>
+    </nav>
+        <h2>One Piece</h2>
+    <section>
+        <h2>Episode 1: Romance Dawn</h2>
+        <p>Monkey D. Luffy's grand adventure, beginning with the execution of the Pirate King, Gol D. Roger, whose dying words about his hidden treasure, the "One Piece," ignite a new era of piracy; the episode introduces us to Luffy, a cheerful and determined young man who dreams of becoming the next Pirate King and possesses the powers of the Gum-Gum Fruit, which makes his body like rubber; during his initial adventures, Luffy encounters Koby, a young man yearning to become a Marine, and after defeating the pirate Alvida, Luffy and Koby set sail, with Luffy in search of a crew and a map to the Grand Line, and both driven by their respective dreams.</p>
+
+    </section>
+
+        <div class="episode-links">
+            <a href="{{ url_for('OnePiece') }}">1</a>
+            <a href="{{ url_for('OnePiece2') }}">2</a>
+        </div>
+
+    <h2>Next Episode will be uploaded every week</h2>
+
+    <footer>
+        @2025 EMINA, Dive into the vibrant world of Anime.
+    </footer>
+</body>
+</html>
