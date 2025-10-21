@@ -1,0 +1,29 @@
+.episode-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+    justify-content: center;
+    max-width: 600px;
+    margin: 20px auto;
+}
+
+.episode {
+    background-color: #333;
+    color: #eee;
+    text-decoration: none;
+    padding: 20px 0;
+    border-radius: 8px;
+    font-size: 20px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.episode:hover {
+    background-color: orangered;
+    color: white;
+}
+
+.episode.active {
+    background-color: deepskyblue;
+    color: black;
+}

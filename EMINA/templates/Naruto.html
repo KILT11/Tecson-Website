@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>EMINA</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='ep.css') }}">
 </head>
 <body>
     <header>
@@ -35,11 +36,11 @@
             to protect Iruka, uses the Shadow Clone Jutsu to defeat Mizuki. Finally, Iruka acknowledges Naruto's strength and allows
             him to graduate.</p>
     </section>
+    <div class="episode-grid">
+        <a href="{{ url_for('Naruto') }}" class="episode">E1</a>
+        <a href="{{ url_for('Naruto2') }}" class="episode">E2</a>
+    </div>
 
-        <div class="episode-links">
-            <a href="{{ url_for('Naruto') }}">1</a>
-            <a href="{{ url_for('Naruto2') }}">2</a>
-        </div>
 
     <h2>Next Episode will be uploaded every week</h2>
 
