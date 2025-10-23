@@ -7,8 +7,12 @@
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
+    <header id="top">
+        Welcome To The World EMINA
+    </header>
+
   <div class="register-container">
-    <a href="{{ url_for('index') }}">x</a>
+     <a href="{{ url_for('index') }}" class="close-btn">x</a>
     <h2>Create an Account</h2>
     <form action="/register" method="POST">
       <label for="name">Your Name</label>
@@ -29,6 +33,9 @@
       Have an account? <a href="{{ url_for('login') }}">Login</a>
     </div>
   </div>
+<footer>
+        @2025 EMINA, Dive into the vibrant world of Anime.
+</footer>
 </body>
 </html>
 

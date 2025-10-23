@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EMINA - Profile</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <style>
+        .profile-container {
+            max-width: 600px;
+            margin: 40px auto;
+            background-color: rgba(0, 0, 0, 0.8);
+            border-radius: 12px;
+            padding: 40px;
+            box-shadow: 0 4px 10px rgba(255, 0, 0, 0.3);
+        }
+
+        .profile-container h2 {
+            color: red;
+            text-align: center;
+            font-size: 32px;
+            margin-bottom: 30px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .profile-info {
+            margin-bottom: 30px;
+        }
+
+        .profile-info label {
+            display: block;
+            color: orangered;
+            font-weight: bold;
+            margin-bottom: 8px;
+            letter-spacing: 1px;
+        }
+
+        .profile-info input {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 6px;
+            background-color: #222;
+            color: #fff;
+            font-size: 16px;
+            box-sizing: border-box;
+            margin-bottom: 15px;
+        }
+
+        .profile-info input:disabled {
+            background-color: #333;
+            cursor: not-allowed;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: bold;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .btn-primary {
+            background-color: red;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #c82333;
+        }
+
+        .btn-secondary {
+            background-color: #555;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background-color: #444;
+        }
+
+        .btn-danger {
+            background-color: #d9534f;
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background-color: #c9302c;
+        }
+
+        .flash-message {
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        .flash-message.success {
+            background-color: #28a745;
+            color: white;
+        }
+
+        .flash-message.error {
+            background-color: #f44336;
+            color: white;
+        }
+
+        .password-section {
+            margin-top: 30px;
+            padding-top: 30px;
+            border-top: 2px solid #444;
+        }
+
+        .password-section h3 {
+            color: orangered;
+            margin-bottom: 15px;
+            font-size: 20px;
+        }
+
+        .delete-section {
+            margin-top: 30px;
+            padding-top: 30px;
+            border-top: 2px solid #444;
+            text-align: center;
+        }
+
+        .delete-section h3 {
+            color: #d9534f;
+            margin-bottom: 15px;
+            font-size: 20px;
+        }
+
+        .delete-section p {
+            color: tomato;
+            margin-bottom: 20px;
+        }
+
+        #edit-mode {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <header id="top">
+        Welcome To The World EMINA
+    </header>
+
+    <nav>
+        <a href="{{ url_for('Home') }}">Home</a>
+        <a href="{{ url_for('Movie') }}">Movies</a>
+        <a href="{{ url_for('Series') }}">TV Series</a>
+        <a href="{{ url_for('Most') }}">Most Popular</a>
+        <a href="{{ url_for('About') }}">About Us</a>
+        <a href="{{ url_for('profile') }}">Profile</a>
+        <a href="{{ url_for('logout') }}">Logout</a>
+    </nav>
+
+    <div class="profile-container">
+        <h2>Your Profile</h2>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="flash-message {{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <!-- View Mode -->
+        <div id="view-mode">
+            <div class="profile-info">
+                <label>Name</label>
+                <input type="text" value="{{ user.name }}" disabled>
+
+                <label>Email</label>
+                <input type="email" value="{{ user.email }}" disabled>
+
+                <label>Member Since</label>
+                <input type="text" value="Account ID: {{ user.id }}" disabled>
+            </div>
+
+            <div class="button-group">
+                <button class="btn btn-primary" onclick="toggleEditMode()">Edit Profile</button>
+                <button class="btn btn-secondary" onclick="window.location.href='{{ url_for('Home') }}'">Back to Home</button>
+            </div>
+        </div>
+
+        <!-- Edit Mode -->
+        <div id="edit-mode">
+            <form action="{{ url_for('update_profile') }}" method="POST">
+                <div class="profile-info">
+                    <label for="name">Name</label>
+                    <input type="text" name="name" id="name" value="{{ user.name }}" required>
+
+                    <label for="email">Email</label>
+                    <input type="email" name="email" id="email" value="{{ user.email }}" required>
+                </div>
+
+                <div class="password-section">
+                    <h3>Change Password (Optional)</h3>
+                    <label for="new_password">New Password</label>
+                    <input type="password" name="new_password" id="new_password" placeholder="Leave blank to keep current password">
+
+                    <label for="confirm_password">Confirm New Password</label>
+                    <input type="password" name="confirm_password" id="confirm_password" placeholder="Confirm new password">
+                </div>
+
+                <div class="button-group">
+                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                    <button type="button" class="btn btn-secondary" onclick="toggleEditMode()">Cancel</button>
+                </div>
+            </form>
+
+            <div class="delete-section">
+                <h3>Delete Account</h3>
+                <p>Warning: This action cannot be undone. All your data will be permanently deleted.</p>
+                <button class="btn btn-danger" onclick="confirmDelete()">Delete My Account</button>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        @2025 EMINA, Dive into the vibrant world of Anime.
+    </footer>
+
+    <script>
+        function toggleEditMode() {
+            const viewMode = document.getElementById('view-mode');
+            const editMode = document.getElementById('edit-mode');
+
+            if (viewMode.style.display === 'none') {
+                viewMode.style.display = 'block';
+                editMode.style.display = 'none';
+            } else {
+                viewMode.style.display = 'none';
+                editMode.style.display = 'block';
+            }
+        }
+
+        function confirmDelete() {
+            if (confirm('Are you sure you want to delete your account? This action cannot be undone!')) {
+                if (confirm('This is your final warning. Your account and all data will be permanently deleted. Continue?')) {
+                    const form = document.createElement('form');
+                    form.method = 'POST';
+                    form.action = "{{ url_for('delete_account') }}";
+                    document.body.appendChild(form);
+                    form.submit();
+                }
+            }
+        }
+    </script>
+</body>
+</html>

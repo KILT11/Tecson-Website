@@ -7,25 +7,40 @@
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-  <div class="login-container">
-   <a href="{{ url_for('index') }}">x</a>
-    <h2>Welcome!</h2>
-    <form action="/login" method="POST">
-      <label for="email">Email Address</label>
-      <input type="email" name="email" id="email" placeholder="name@email.com" required>
+  <div class="auth-wrapper">
+    <div class="login-container">
+      <a href="{{ url_for('index') }}" class="close-btn">x</a>
+      <h2>Welcome!</h2>
 
-      <label for="password">Password</label>
-      <input type="password" name="password" id="password" placeholder="Password" required>
+      {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+          {% for category, message in messages %}
+            <div class="flash-message {{ category }}">{{ message }}</div>
+          {% endfor %}
+        {% endif %}
+      {% endwith %}
 
-      <div class="remember-forgot">
-        <label><input type="checkbox" name="remember"> Remember me</label>
-        <a href="#">Forgot password?</a>
+      {% if error %}
+        <div class="flash-message error">{{ error }}</div>
+      {% endif %}
+
+      <form action="{{ url_for('login') }}" method="POST">
+        <label for="email">Email Address</label>
+        <input type="email" name="email" id="email" placeholder="name@email.com" required>
+
+        <label for="password">Password</label>
+        <input type="password" name="password" id="password" placeholder="Password" required>
+
+        <div class="remember-forgot">
+          <label><input type="checkbox" name="remember"> Remember me</label>
+          <a href="#">Forgot password?</a>
+        </div>
+
+        <button type="submit">Login</button>
+      </form>
+      <div class="footer-text">
+        Don't have an account? <a href="{{ url_for('register') }}">Register</a>
       </div>
-
-      <button type="submit">Login</button>
-    </form>
-    <div class="footer-text">
-      Don’t have an account? <a href="{{ url_for('register') }}">Register</a>
     </div>
   </div>
 </body>

@@ -12,11 +12,17 @@
     </header>
 
     <nav>
-        <a href="{{ url_for('Home') }}" id="home-link">Home</a>
+      <a href="{{ url_for('Home') }}" id="home-link">Home</a>
         <a href="{{ url_for('Movie') }}">Movies</a>
         <a href="{{ url_for('Series') }}">TV Series</a>
         <a href="{{ url_for('Most') }}">Most Popular</a>
         <a href="{{ url_for('About') }}">About Us</a>
+
+        {% if session.user_id %}
+            <a href="{{ url_for('logout') }}">Logout</a>
+        {% else %}
+            <a href="{{ url_for('login') }}">Login</a>
+        {% endif %}
         <div class="search-bar">
             <input type="text" id="search-input" placeholder="Search anime movies and series..." />
             <button id="search-button">Search</button>
