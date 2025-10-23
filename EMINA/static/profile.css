@@ -1,0 +1,234 @@
+
+      body {
+            font-family: Arial, sans-serif;
+            background-color: #000;
+            color: white;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            text-align: center;
+            background-color: red;
+            padding: 15px;
+            font-size: 24px;
+            color: white;
+            text-transform: uppercase;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            background-color: #111;
+            padding: 10px 0;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            text-transform: uppercase;
+            font-weight: bold;
+            letter-spacing: 1px;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: red;
+        }
+
+        footer {
+            text-align: center;
+            padding: 15px;
+            background-color: #111;
+            color: #aaa;
+            font-size: 14px;
+            margin-top: 50px;
+        }
+
+        .profile-container {
+            max-width: 600px;
+            margin: 40px auto;
+            background-color: rgba(0, 0, 0, 0.85);
+            border-radius: 12px;
+            padding: 40px;
+            box-shadow: 0 4px 10px rgba(255, 0, 0, 0.3);
+        }
+
+        .profile-container h2 {
+            color: red;
+            text-align: center;
+            font-size: 32px;
+            margin-bottom: 30px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .profile-info {
+            margin-bottom: 30px;
+        }
+
+        .profile-info label {
+            display: block;
+            color: orangered;
+            font-weight: bold;
+            margin-bottom: 8px;
+            letter-spacing: 1px;
+        }
+
+        .profile-info input {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 6px;
+            background-color: #222;
+            color: #fff;
+            font-size: 16px;
+            box-sizing: border-box;
+            margin-bottom: 15px;
+        }
+
+        .profile-info input:disabled {
+            background-color: #333;
+            cursor: not-allowed;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: bold;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .btn-primary {
+            background-color: red;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #c82333;
+        }
+
+        .btn-secondary {
+            background-color: #555;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background-color: #444;
+        }
+
+        .btn-danger {
+            background-color: #d9534f;
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background-color: #c9302c;
+        }
+
+        .flash-message {
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        .flash-message.success {
+            background-color: #28a745;
+            color: white;
+        }
+
+        .flash-message.error {
+            background-color: #f44336;
+            color: white;
+        }
+
+        /* --- Enhanced Change Password Section --- */
+        .password-section {
+            margin-top: 40px;
+            padding: 25px 30px;
+            border: 2px solid #ff4d4d;
+            border-radius: 10px;
+            background: linear-gradient(145deg, #1a1a1a, #262626);
+            box-shadow: 0 0 15px rgba(255, 0, 0, 0.3);
+        }
+
+        .password-section h3 {
+            color: #ff4d4d;
+            font-size: 22px;
+            text-align: center;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .password-section label {
+            display: block;
+            color: #ffb366;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .password-section input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ff4d4d;
+            border-radius: 8px;
+            background-color: #111;
+            color: white;
+            font-size: 16px;
+            box-sizing: border-box;
+            margin-bottom: 20px;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        .password-section input:focus {
+            border-color: #ff6666;
+            box-shadow: 0 0 10px rgba(255, 77, 77, 0.6);
+            outline: none;
+        }
+
+        .password-hint {
+            color: #aaa;
+            font-size: 13px;
+            margin-top: -10px;
+            margin-bottom: 15px;
+            display: block;
+            text-align: left;
+        }
+
+        .delete-section {
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 2px solid #444;
+            text-align: center;
+        }
+
+        .delete-section h3 {
+            color: #d9534f;
+            margin-bottom: 15px;
+            font-size: 20px;
+        }
+
+        .delete-section p {
+            color: tomato;
+            margin-bottom: 20px;
+        }
+
+        #edit-mode {
+            display: none;
+        }

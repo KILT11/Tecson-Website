@@ -20,6 +20,7 @@
         <a href="{{ url_for('About') }}">About Us</a>
 
         {% if session.user_id %}
+            <a href="{{ url_for('profile') }}">Profile</a>
             <a href="{{ url_for('logout') }}">Logout</a>
         {% else %}
             <a href="{{ url_for('login') }}">Login</a>
@@ -42,13 +43,16 @@
             to protect Iruka, uses the Shadow Clone Jutsu to defeat Mizuki. Finally, Iruka acknowledges Naruto's strength and allows
             him to graduate.</p>
     </section>
-    <div class="episode-grid">
+    <section>
+        <h2>Episode</h2>
+        <div class="episode-grid">
         <a href="{{ url_for('Naruto') }}" class="episode">E1</a>
         <a href="{{ url_for('Naruto2') }}" class="episode">E2</a>
     </div>
+         <h2>New Episode will be uploaded every week</h2>
+    </section>
 
 
-    <h2>Next Episode will be uploaded every week</h2>
 
     <footer>
         @2025 EMINA, Dive into the vibrant world of Anime.

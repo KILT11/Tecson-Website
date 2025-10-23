@@ -5,10 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>EMINA</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+     <link rel="stylesheet" href="{{ url_for('static', filename='ep.css') }}">
 </head>
 <body>
     <header>
-        Welcome To The World ENIMA
+        Welcome To The World EMINA
     </header>
 
     <nav>
@@ -19,6 +20,7 @@
         <a href="{{ url_for('About') }}">About Us</a>
 
         {% if session.user_id %}
+            <a href="{{ url_for('profile') }}">Profile</a>
             <a href="{{ url_for('logout') }}">Logout</a>
         {% else %}
             <a href="{{ url_for('login') }}">Login</a>
@@ -40,13 +42,15 @@
             him into a powerful, albeit substitute, Soul Reaper. The episode concludes with Ichigo defeating the Hollow
             and beginning his unexpected journey into the world of Soul Reapers and the supernatural.</p>
     </section>
+<section>
+        <h2>Episode</h2>
+        <div class="episode-grid">
+        <a href="{{ url_for('Bleach') }}" class="episode">E1</a>
+        <a href="{{ url_for('Bleach2') }}" class="episode">E2</a>
+    </div>
+    <h2>New Episode will be uploaded every week</h2>
+</section>
 
-        <div class="episode-links">
-            <a href="{{ url_for('Bleach') }}">1</a>
-            <a href="{{ url_for('Bleach2') }}">2</a>
-        </div>
-
-    <h2>Next Episode will be uploaded every week</h2>
 
     <footer>
         @2025 EMINA, Dive into the vibrant world of Anime.

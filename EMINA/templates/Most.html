@@ -19,6 +19,7 @@
         <a href="{{ url_for('About') }}">About Us</a>
 
         {% if session.user_id %}
+            <a href="{{ url_for('profile') }}">Profile</a>
             <a href="{{ url_for('logout') }}">Logout</a>
         {% else %}
             <a href="{{ url_for('login') }}">Login</a>
@@ -27,6 +28,7 @@
 
     <section id="most-section">
         <h2>Hello, Ottaku!</h2>
+        <p>Welcome to <span>Emina</span>, your premier destination for all things anime.</p>
         <div class="search-bar">
             <input type="text" id="search-input" placeholder="Search anime movies and series...">
             <button id="search-button">Search</button>

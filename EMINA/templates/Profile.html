@@ -5,150 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EMINA - Profile</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
-    <style>
-        .profile-container {
-            max-width: 600px;
-            margin: 40px auto;
-            background-color: rgba(0, 0, 0, 0.8);
-            border-radius: 12px;
-            padding: 40px;
-            box-shadow: 0 4px 10px rgba(255, 0, 0, 0.3);
-        }
-
-        .profile-container h2 {
-            color: red;
-            text-align: center;
-            font-size: 32px;
-            margin-bottom: 30px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
-
-        .profile-info {
-            margin-bottom: 30px;
-        }
-
-        .profile-info label {
-            display: block;
-            color: orangered;
-            font-weight: bold;
-            margin-bottom: 8px;
-            letter-spacing: 1px;
-        }
-
-        .profile-info input {
-            width: 100%;
-            padding: 12px;
-            border: none;
-            border-radius: 6px;
-            background-color: #222;
-            color: #fff;
-            font-size: 16px;
-            box-sizing: border-box;
-            margin-bottom: 15px;
-        }
-
-        .profile-info input:disabled {
-            background-color: #333;
-            cursor: not-allowed;
-        }
-
-        .button-group {
-            display: flex;
-            gap: 10px;
-            margin-top: 20px;
-        }
-
-        .btn {
-            flex: 1;
-            padding: 12px;
-            border: none;
-            border-radius: 6px;
-            font-size: 16px;
-            font-weight: bold;
-            text-transform: uppercase;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-
-        .btn-primary {
-            background-color: red;
-            color: white;
-        }
-
-        .btn-primary:hover {
-            background-color: #c82333;
-        }
-
-        .btn-secondary {
-            background-color: #555;
-            color: white;
-        }
-
-        .btn-secondary:hover {
-            background-color: #444;
-        }
-
-        .btn-danger {
-            background-color: #d9534f;
-            color: white;
-        }
-
-        .btn-danger:hover {
-            background-color: #c9302c;
-        }
-
-        .flash-message {
-            padding: 15px;
-            margin-bottom: 20px;
-            border-radius: 5px;
-            text-align: center;
-        }
-
-        .flash-message.success {
-            background-color: #28a745;
-            color: white;
-        }
-
-        .flash-message.error {
-            background-color: #f44336;
-            color: white;
-        }
-
-        .password-section {
-            margin-top: 30px;
-            padding-top: 30px;
-            border-top: 2px solid #444;
-        }
-
-        .password-section h3 {
-            color: orangered;
-            margin-bottom: 15px;
-            font-size: 20px;
-        }
-
-        .delete-section {
-            margin-top: 30px;
-            padding-top: 30px;
-            border-top: 2px solid #444;
-            text-align: center;
-        }
-
-        .delete-section h3 {
-            color: #d9534f;
-            margin-bottom: 15px;
-            font-size: 20px;
-        }
-
-        .delete-section p {
-            color: tomato;
-            margin-bottom: 20px;
-        }
-
-        #edit-mode {
-            display: none;
-        }
-    </style>
+    <link rel="stylesheet" href="{{ url_for('static', filename='profile.css') }}">
 </head>
 <body>
     <header id="top">
@@ -207,12 +64,14 @@
                 </div>
 
                 <div class="password-section">
-                    <h3>Change Password (Optional)</h3>
+                    <h3>Change Password</h3>
+
                     <label for="new_password">New Password</label>
-                    <input type="password" name="new_password" id="new_password" placeholder="Leave blank to keep current password">
+                    <input type="password" name="new_password" id="new_password" placeholder="Enter new password">
+                    <span class="password-hint">Leave blank if you don’t want to change your password.</span>
 
                     <label for="confirm_password">Confirm New Password</label>
-                    <input type="password" name="confirm_password" id="confirm_password" placeholder="Confirm new password">
+                    <input type="password" name="confirm_password" id="confirm_password" placeholder="Re-enter new password">
                 </div>
 
                 <div class="button-group">

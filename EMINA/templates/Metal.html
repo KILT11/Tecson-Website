@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>EMINA</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='ep.css') }}">
 </head>
 <body>
     <header>
@@ -12,13 +13,14 @@
     </header>
 
     <nav>
-        <a href="{{ url_for('Home') }}" id="home-link">Home</a>
+       <a href="{{ url_for('Home') }}" id="home-link">Home</a>
         <a href="{{ url_for('Movie') }}">Movies</a>
         <a href="{{ url_for('Series') }}">TV Series</a>
         <a href="{{ url_for('Most') }}">Most Popular</a>
         <a href="{{ url_for('About') }}">About Us</a>
 
         {% if session.user_id %}
+            <a href="{{ url_for('profile') }}">Profile</a>
             <a href="{{ url_for('logout') }}">Logout</a>
         {% else %}
             <a href="{{ url_for('login') }}">Login</a>
@@ -40,13 +42,14 @@
         journey to uncover the secrets of the Philosopher's Stone, hoping it will restore their bodies and undo
         the damage caused by their alchemical transgression.</p>
     </section>
-
-        <div class="episode-links">
-            <a href="{{ url_for('Metal') }}">1</a>
-            <a href="{{ url_for('Metal2') }}">2</a>
-        </div>
-
-    <h2>Next Episode will be uploaded every week</h2>
+   <section>
+        <h2>Episode</h2>
+        <div class="episode-grid">
+        <a href="{{ url_for('Metal') }}" class="episode">E1</a>
+        <a href="{{ url_for('Metal2') }}" class="episode">E2</a>
+    </div>
+             <h2>New Episode will be uploaded every week</h2>
+    </section>
 
     <footer>
         @2025 EMINA, Dive into the vibrant world of Anime.

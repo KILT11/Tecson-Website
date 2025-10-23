@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='ep.css') }}">
 </head>
 <body>
     <header>
@@ -18,6 +19,7 @@
         <a href="{{ url_for('About') }}">About Us</a>
 
         {% if session.user_id %}
+            <a href="{{ url_for('profile') }}">Profile</a>
             <a href="{{ url_for('logout') }}">Logout</a>
         {% else %}
             <a href="{{ url_for('login') }}">Login</a>
@@ -31,17 +33,20 @@
     </nav>
     <h2>Attack On Titan</h2>
     <section>
-        <h2>Episde 1: To You, in 2000 Years: The Fall of Shiganshina, Part 1</h2>
+        <h2>Episode 1: To You, in 2000 Years: The Fall of Shiganshina, Part 1</h2>
         <p>Eren Jaeger, his adoptive sister Mikasa Ackerman, and their friend Armin Arlert, living in the town of Shiganshina, located within Wall Maria. The episode establishes the world where humanity resides within giant walls to protect themselves from Titans, giant humanoid creatures that devour humans.
 
 The episode takes a dramatic turn when the Colossal Titan suddenly appears, breaching Wall Maria and allowing other Titans to enter. During the chaos, Eren witnesses his mother being eaten by a Titan. This horrific event fuels Eren's rage and desire for revenge against the Titans, setting the stage for the series' main conflict.</p>
     </section>
+    <section>
+        <h2>Episode</h2>
+        <div class="episode-grid">
+        <a href="{{ url_for('Attack') }}" class="episode">E1</a>
+        <a href="{{ url_for('Attack2') }}" class="episode">E2</a>
+    </div>
+         <h2>New Episode will be uploaded every week</h2>
+    </section>
 
-        <div class="episode-links">
-            <a href="{{ url_for('Attack') }}">1</a>
-            <a href="{{ url_for('Attack2') }}">2</a>
-        </div>
-    <h2>Next Episode will be uploaded every week</h2>
 
     <footer>
         @2025 EMINA, Dive into the vibrant world of Anime.

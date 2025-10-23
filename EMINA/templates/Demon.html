@@ -5,10 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>EMINA</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='ep.css') }}">
 </head>
 <body>
     <header>
-        Welcome To The World ENIMA
+        Welcome To The World EMINA
     </header>
 
     <nav>
@@ -19,6 +20,7 @@
         <a href="{{ url_for('About') }}">About Us</a>
 
         {% if session.user_id %}
+            <a href="{{ url_for('profile') }}">Profile</a>
             <a href="{{ url_for('logout') }}">Logout</a>
         {% else %}
             <a href="{{ url_for('login') }}">Login</a>
@@ -33,20 +35,19 @@
         <h2>Demon Slayer</h2>
     <section>
         <h2>Episode 1: Cruelty</h2>
-       <p>Tanjiro Kamado, a kind-hearted young man who lives with his family in the mountains and sells charcoal for a living.
-        One day, Tanjiro returns home to find his family brutally murdered, with only his sister Nezuko surviving, but having
-        been turned into a demon. Tanjiro is shocked and desperate to save her. During a confrontation with Giyu Tomioka, a
-        demon slayer, Tanjiro shows his determination and potential, leading Giyu to direct him to a former demon slayer for
-        training. The episode ends with Tanjiro beginning his journey to find a way to turn Nezuko back into a human and
-        avenge his family.</p>
+        <video width="640" height="360" controls>
+  <source src="{{ url_for('static', filename='infi.mp4') }}" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
     </section>
-
-        <div class="episode-links">
-            <a href="{{ url_for('Demon') }}">1</a>
-            <a href="{{ url_for('Demon2') }}">2</a>
-        </div>
-
-    <h2>Next Episode will be uploaded every week</h2>
+     <section>
+        <h2>Episode</h2>
+        <div class="episode-grid">
+        <a href="{{ url_for('Demon') }}" class="episode">E1</a>
+        <a href="{{ url_for('Demon2') }}" class="episode">E2</a>
+    </div>
+             <h2>New Episode will be uploaded every week</h2>
+    </section>
 
     <footer>
         @2025 EMINA, Dive into the vibrant world of Anime.

@@ -5,10 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>EMINA</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='ep.css') }}">
 </head>
 <body>
     <header>
-        Welcome To The World ENIMA
+        Welcome To The World EMINA
     </header>
 
     <nav>
@@ -19,6 +20,7 @@
         <a href="{{ url_for('About') }}">About Us</a>
 
         {% if session.user_id %}
+            <a href="{{ url_for('profile') }}">Profile</a>
             <a href="{{ url_for('logout') }}">Logout</a>
         {% else %}
             <a href="{{ url_for('login') }}">Login</a>
@@ -37,13 +39,14 @@
         He is then found by Sakonji Urokodaki, a former Demon Slayer, who becomes Tanjiro's trainer. Urokodaki tests Tanjiro's resolve
         and begins to train him, leading Tanjiro on the path to mastering the skills needed to defeat demons and protect his sister.</p>
     </section>
-
-        <div class="episode-links">
-            <a href="{{ url_for('Demon') }}">1</a>
-            <a href="{{ url_for('Demon2') }}">2</a>
-        </div>
-
-    <h2>Next Episode will be uploaded every week</h2>
+    <section>
+        <h2>Episode</h2>
+        <div class="episode-grid">
+        <a href="{{ url_for('Attack') }}" class="episode">E1</a>
+        <a href="{{ url_for('Attack2') }}" class="episode">E2</a>
+    </div>
+             <h2>New Episode will be uploaded every week</h2>
+    </section>
 
     <footer>
         @2025 EMINA, Dive into the vibrant world of Anime.

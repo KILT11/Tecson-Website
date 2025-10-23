@@ -3,18 +3,25 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>EMINA Login</title>
+  <title>Forgot Password - EMINA</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
 <header id="top">
-        Welcome To The World EMINA
-    </header>
+    Welcome To The World EMINA
+</header>
   <div class="auth-wrapper">
     <div class="login-container">
+      <!-- 'x' button links back to the main index page -->
       <a href="{{ url_for('index') }}" class="close-btn">x</a>
-      <h2>Welcome!</h2>
+      <h2>Reset Your Password</h2>
 
+      <!-- Informational text styled with a generic class (which you can add to styles.css) -->
+      <p class="auth-message">
+        Enter the email address associated with your account. We will send you a link to securely reset your password.
+      </p>
+
+      <!-- Flask Flash Messages for success/error alerts -->
       {% with messages = get_flashed_messages(with_categories=true) %}
         {% if messages %}
           {% for category, message in messages %}
@@ -23,32 +30,21 @@
         {% endif %}
       {% endwith %}
 
-      {% if error %}
-        <div class="flash-message error">{{ error }}</div>
-      {% endif %}
-
-      <form action="{{ url_for('login') }}" method="POST">
+      <!-- The action should point to a new route in app.py for handling the reset request -->
+      <form action="{{ url_for('forgot_password') }}" method="POST">
         <label for="email">Email Address</label>
         <input type="email" name="email" id="email" placeholder="name@email.com" required>
 
-        <label for="password">Password</label>
-        <input type="password" name="password" id="password" placeholder="Password" required>
-
-        <div class="remember-forgot">
-          <label><input type="checkbox" name="remember"> Remember me</label>
-          <!-- LINK UPDATED HERE to point to the new route -->
-          <a href="{{ url_for('forgot_password') }}">Forgot password?</a>
-        </div>
-
-        <button type="submit">Login</button>
+        <button type="submit">Send Reset Link</button>
       </form>
+
       <div class="footer-text">
-        Don't have an account? <a href="{{ url_for('register') }}">Register</a>
+        Remember your password? <a href="{{ url_for('login') }}">Back to Login</a>
       </div>
     </div>
   </div>
   <footer>
-        @2025 EMINA, Dive into the vibrant world of Anime.
-    </footer>
+    @2025 EMINA, Dive into the vibrant world of Anime.
+  </footer>
 </body>
 </html>

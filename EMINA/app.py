@@ -21,6 +21,9 @@ class User(db.Model):
     name = db.Column(db.String(100), nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
     password = db.Column(db.String(200), nullable=False)
+    # If you implement token-based reset later, you would add fields here:
+    # reset_token = db.Column(db.String(100), nullable=True)
+    # reset_token_expiration = db.Column(db.DateTime, nullable=True)
 
     def set_password(self, password):
         """Hash password before saving"""
@@ -103,6 +106,30 @@ def login():
             return render_template('login.html', error="Invalid email or password!")
 
     return render_template('login.html')
+
+
+# ----------------- FORGOT PASSWORD -----------------
+# This route serves the forgot password form and handles the email submission.
+@app.route('/forgot', methods=['GET', 'POST'])
+def forgot_password():
+    if request.method == 'POST':
+        email = request.form['email']
+        user = User.query.filter_by(email=email).first()
+
+        if user:
+            # NOTE: For a complete feature, you would generate a token, save it to the DB,
+            # and use Flask-Mail to send an email with a reset link (e.g., url_for('reset_token', token=token)).
+            # For now, we flash a success message assuming the email was sent.
+            flash('If an account exists for that email, a password reset link has been sent.', 'success')
+            return redirect(url_for('login'))
+        else:
+            # We still flash a generic success message for security reasons
+            # (to avoid confirming which emails are registered).
+            flash('If an account exists for that email, a password reset link has been sent.', 'success')
+            return redirect(url_for('login'))
+
+    # If GET request, display the form
+    return render_template('forgot.html')
 
 
 # ----------------- LOGOUT -----------------
@@ -287,4 +314,4 @@ def SuperHero():
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(host='0.0.0.0',port=5000, debug=True)
