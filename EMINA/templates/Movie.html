@@ -18,16 +18,16 @@
         <a href="{{ url_for('Most') }}">Most Popular</a>
         <a href="{{ url_for('About') }}">About Us</a>
 
-       {% if session.user_id %}
+        {% if session.user_id %}
             <a href="{{ url_for('profile') }}">Profile</a>
-            <a href="{{ url_for('logout') }}">Logout</a>
+            <a href="{{ url_for('index') }}">Logout</a>
         {% else %}
             <a href="{{ url_for('login') }}">Login</a>
         {% endif %}
     </nav>
 
     <section id="movie-section">
-	 <h2>Hello, Ottaku!</h2>
+	 <h2>Hello, Otaku!</h2>
         <p>Welcome to <span>Emina</span>, your premier destination for all things anime.</p>
         <div class="search-bar">
             <input type="text" id="search-input" placeholder="Search anime movies and series...">
@@ -55,6 +55,84 @@
     <footer>
         @2025 EMINA, Dive into the vibrant world of Anime.
     </footer>
+    <script>
+        // Search functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const searchInput = document.getElementById('search-input');
+            const searchButton = document.getElementById('search-button');
+            const animeGrid = document.querySelector('.anime-grid');
+            const searchResults = document.getElementById('search-results');
+            const noResults = document.getElementById('no-results');
 
+            // All anime data
+            const animeData = [
+                { title: 'Attack on Titan', url: "{{ url_for('Attack') }}", img: "{{ url_for('static', filename='attack.jpg') }}" },
+                { title: 'Naruto', url: "{{ url_for('Naruto') }}", img: "{{ url_for('static', filename='naruto.jpg') }}" },
+                { title: 'One Piece', url: "{{ url_for('OnePiece') }}", img: "{{ url_for('static', filename='One.jpg') }}" },
+                { title: 'Demon Slayer', url: "{{ url_for('Demon') }}", img: "{{ url_for('static', filename='demon.jpg') }}" },
+                { title: 'Fullmetal Alchemist', url: "{{ url_for('Metal') }}", img: "{{ url_for('static', filename='metal.jpg') }}" },
+                { title: 'Bleach', url: "{{ url_for('Bleach') }}", img: "{{ url_for('static', filename='bleach.jpg') }}" },
+                { title: 'Dragon Ball Super: Broly', url: "{{ url_for('Broly') }}", img: "{{ url_for('static', filename='dragon.jpg') }}" },
+                { title: 'Dragon Ball Super: Super Hero', url: "{{ url_for('SuperHero') }}", img: "{{ url_for('static', filename='Drag.jpg') }}" },
+                { title: 'Demon Slayer: Kimetsu no Yaiba - The Movie: Mugen Train', url: "{{ url_for('Mugen') }}", img: "{{ url_for('static', filename='Mdemon.jpg') }}" }
+            ];
+
+            function performSearch() {
+                const query = searchInput.value.toLowerCase().trim();
+
+                if (query === '') {
+                    // Show all anime if search is empty
+                    animeGrid.style.display = 'grid';
+                    searchResults.style.display = 'none';
+                    noResults.style.display = 'none';
+                    return;
+                }
+
+                // Filter anime based on search query
+                const results = animeData.filter(anime =>
+                    anime.title.toLowerCase().includes(query)
+                );
+
+                // Hide original grid
+                animeGrid.style.display = 'none';
+
+                if (results.length > 0) {
+                    // Display results
+                    searchResults.innerHTML = '';
+                    searchResults.style.display = 'grid';
+                    noResults.style.display = 'none';
+
+                    results.forEach(anime => {
+                        const item = document.createElement('div');
+                        item.className = 'anime-grid-item';
+                        item.innerHTML = `
+                            <a href="${anime.url}"><img src="${anime.img}" alt="${anime.title}"></a>
+                            <a href="${anime.url}">${anime.title}</a>
+                        `;
+                        searchResults.appendChild(item);
+                    });
+                } else {
+                    // No results found
+                    searchResults.style.display = 'none';
+                    noResults.style.display = 'block';
+                }
+            }
+
+            // Search on button click
+            searchButton.addEventListener('click', performSearch);
+
+            // Search on Enter key press
+            searchInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    performSearch();
+                }
+            });
+
+            // Real-time search as user types
+            searchInput.addEventListener('input', function() {
+                performSearch();
+            });
+        });
+    </script>
 </body>
 </html>

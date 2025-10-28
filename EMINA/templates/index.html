@@ -13,14 +13,10 @@
     </header>
 
     <section id="index-content">
-        <h2>Hello, Ottaku!</h2>
-        <p>To fully use of this website please Log in first or Create an ACCOUNT</p>
+        <h2>Hello, Otaku!</h2>
+        <p>To fully use this website please Log in first or Create an ACCOUNT</p>
          <nav>
-        {% if session.user_id %}
-            <a href="{{ url_for('login') }}">Login</a>
-        {% else %}
-             <a href="{{ url_for('logout') }}">Logout</a>
-        {% endif %}
+             <a href="{{ url_for('login') }}">Login</a>
              <a href="{{ url_for('register') }}">Register</a>
     </nav>
     </section>

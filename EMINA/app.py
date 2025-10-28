@@ -199,7 +199,7 @@ def delete_account():
     session.pop('user_name', None)
 
     flash('Your account has been deleted successfully.', 'success')
-    return redirect(url_for('login'))
+    return redirect(url_for('index'))
 
 
 @app.route('/about.html')

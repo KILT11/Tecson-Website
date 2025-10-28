@@ -21,16 +21,14 @@
 
         {% if session.user_id %}
             <a href="{{ url_for('profile') }}">Profile</a>
-            <a href="{{ url_for('logout') }}">Logout</a>
+            <a href="{{ url_for('index') }}">Logout</a>
         {% else %}
             <a href="{{ url_for('login') }}">Login</a>
         {% endif %}
-        <div class="search-bar">
-            <input type="text" id="search-input" placeholder="Search anime movies and series..." />
+       <div class="search-bar">
+            <input type="text" id="search-input" placeholder="Search anime..." />
             <button id="search-button">Search</button>
         </div>
-        <div class="search-results" id="search-results"></div>
-        <p class="no-results" id="no-results">No results found.</p>
     </nav>
         <h2>Bleach</h2>
     <section>
@@ -51,9 +49,9 @@
     <h2>New Episode will be uploaded every week</h2>
 </section>
 
-
     <footer>
         @2025 EMINA, Dive into the vibrant world of Anime.
     </footer>
+ <script src="{{ url_for('static', filename='search.js') }}"></script>
 </body>
 </html>
