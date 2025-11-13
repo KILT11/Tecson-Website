@@ -1,13 +1,12 @@
-from flask import Flask, render_template, request, redirect, url_for, session, flash
-from flask_bcrypt import Bcrypt
-from flask_scss import Scss
+from flask import Flask, render_template, request, redirect, url_for, session, flash, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
 from functools import wraps
+from datetime import datetime
 
 # --- Initialize Flask app ---
 app = Flask(__name__)
-app.secret_key = 'anime_emina'  # change this to something secure
+app.secret_key = 'anime_emina'  # Change to secure random key in production
 
 # --- Database Configuration ---
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///eminauser.db'
@@ -21,17 +20,26 @@ class User(db.Model):
     name = db.Column(db.String(100), nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
     password = db.Column(db.String(200), nullable=False)
-    # If you implement token-based reset later, you would add fields here:
-    # reset_token = db.Column(db.String(100), nullable=True)
-    # reset_token_expiration = db.Column(db.DateTime, nullable=True)
+    favorites = db.relationship('Favorite', backref='user', lazy=True, cascade='all, delete-orphan')
 
     def set_password(self, password):
-        """Hash password before saving"""
         self.password = generate_password_hash(password)
 
     def check_password(self, password):
-        """Verify password"""
         return check_password_hash(self.password, password)
+
+
+# --- Favorite Model ---
+class Favorite(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    anime_title = db.Column(db.String(200), nullable=False)
+    anime_image = db.Column(db.String(200), nullable=False)  # This now stores the full URL
+    anime_url = db.Column(db.String(200), nullable=False)
+    added_date = db.Column(db.DateTime, default=datetime.utcnow)
+
+    # Ensure a user cannot favorite the same anime twice
+    __table_args__ = (db.UniqueConstraint('user_id', 'anime_title', name='_user_anime_uc'),)
 
 
 # --- Create tables ---
@@ -51,14 +59,49 @@ def login_required(f):
     return decorated_function
 
 
-# --- Routes ---
+# --- HELPER FUNCTION: Get Favorite Titles ---
+def get_favorite_titles():
+    """Fetches a list of favorited anime titles for the current user."""
+    if 'user_id' in session:
+        user_favorites = Favorite.query.filter_by(user_id=session['user_id']).all()
+        return [fav.anime_title for fav in user_favorites]
+    return []
 
+
+# --- Public Routes (Unchanged) ---
 @app.route('/')
 def index():
     return render_template('index.html')
 
 
-# ----------------- REGISTER -----------------
+@app.route('/about.html')
+def About():
+    return render_template('About.html')
+
+
+# --- Updated Content Routes to pass favorites (UPDATED) ---
+@app.route('/most.html')
+@login_required
+def Most():
+    favorite_titles = get_favorite_titles()
+    return render_template('Most.html', favorite_titles=favorite_titles)
+
+
+@app.route('/movie.html')
+@login_required
+def Movie():
+    favorite_titles = get_favorite_titles()
+    return render_template('Movie.html', favorite_titles=favorite_titles)
+
+
+@app.route('/series.html')
+@login_required
+def Series():
+    favorite_titles = get_favorite_titles()
+    return render_template('Series.html', favorite_titles=favorite_titles)
+
+
+# --- Authentication Routes (Unchanged) ---
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     if request.method == 'POST':
@@ -67,22 +110,17 @@ def register():
         password = request.form['password']
         confirm_password = request.form['confirm_password']
 
-        # Check if passwords match
         if password != confirm_password:
             return render_template('register.html', error="Passwords do not match!")
 
-        # Check if user already exists
-        existing_user = User.query.filter_by(email=email).first()
-        if existing_user:
+        if User.query.filter_by(email=email).first():
             return render_template('register.html', error="Email already registered!")
 
-        # Create new user
         new_user = User(name=name, email=email)
         new_user.set_password(password)
         db.session.add(new_user)
         db.session.commit()
 
-        # Log them in automatically
         session['user_id'] = new_user.id
         session['user_name'] = new_user.name
         return redirect(url_for('Home'))
@@ -90,89 +128,70 @@ def register():
     return render_template('register.html')
 
 
-# ----------------- LOGIN -----------------
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
         email = request.form['email']
         password = request.form['password']
-
         user = User.query.filter_by(email=email).first()
+
         if user and user.check_password(password):
             session['user_id'] = user.id
             session['user_name'] = user.name
             return redirect(url_for('Home'))
-        else:
-            return render_template('login.html', error="Invalid email or password!")
+
+        return render_template('login.html', error="Invalid email or password!")
 
     return render_template('login.html')
 
 
-# ----------------- FORGOT PASSWORD -----------------
-# This route serves the forgot password form and handles the email submission.
 @app.route('/forgot', methods=['GET', 'POST'])
 def forgot_password():
     if request.method == 'POST':
         email = request.form['email']
-        user = User.query.filter_by(email=email).first()
-
-        if user:
-            # NOTE: For a complete feature, you would generate a token, save it to the DB,
-            # and use Flask-Mail to send an email with a reset link (e.g., url_for('reset_token', token=token)).
-            # For now, we flash a success message assuming the email was sent.
-            flash('If an account exists for that email, a password reset link has been sent.', 'success')
-            return redirect(url_for('login'))
-        else:
-            # We still flash a generic success message for security reasons
-            # (to avoid confirming which emails are registered).
-            flash('If an account exists for that email, a password reset link has been sent.', 'success')
-            return redirect(url_for('login'))
-
-    # If GET request, display the form
+        flash('If an account exists for that email, a password reset link has been sent.', 'success')
+        return redirect(url_for('login'))
     return render_template('forgot.html')
 
 
-# ----------------- LOGOUT -----------------
 @app.route('/logout')
 def logout():
-    session.pop('user_id', None)
-    session.pop('user_name', None)
+    session.clear()
     return redirect(url_for('login'))
 
 
-# ----------------- HOME -----------------
+# --- User Dashboard Routes (Home, Profile updated) ---
 @app.route('/home')
 @login_required
 def Home():
-    return render_template('Home.html', name=session['user_name'])
+    # Get user's favorite anime IDs for frontend checking
+    favorite_titles = get_favorite_titles()
+    return render_template('Home.html', name=session['user_name'], favorite_titles=favorite_titles)
 
 
-# ----------------- PROFILE -----------------
 @app.route('/profile')
 @login_required
 def profile():
     user = User.query.get(session['user_id'])
-    return render_template('profile.html', user=user)
+    # Fetch favorites with all details, ordered by date
+    favorites = Favorite.query.filter_by(user_id=session['user_id']).order_by(Favorite.added_date.desc()).all()
+    return render_template('profile.html', user=user, favorites=favorites)
 
 
 @app.route('/profile/update', methods=['POST'])
 @login_required
 def update_profile():
     user = User.query.get(session['user_id'])
-
     name = request.form['name']
     email = request.form['email']
 
-    # Check if email is already taken by another user
-    existing_user = User.query.filter(User.email == email, User.id != user.id).first()
-    if existing_user:
+    if User.query.filter(User.email == email, User.id != user.id).first():
         flash('Email already taken by another user!', 'error')
         return redirect(url_for('profile'))
 
     user.name = name
     user.email = email
 
-    # Update password if provided
     new_password = request.form.get('new_password')
     confirm_password = request.form.get('confirm_password')
 
@@ -194,124 +213,105 @@ def delete_account():
     user = User.query.get(session['user_id'])
     db.session.delete(user)
     db.session.commit()
-
-    session.pop('user_id', None)
-    session.pop('user_name', None)
-
+    session.clear()
     flash('Your account has been deleted successfully.', 'success')
     return redirect(url_for('index'))
 
 
-@app.route('/about.html')
-def About():
-    return render_template('About.html')
-
-
-@app.route('/most.html')
-def Most():
-    return render_template('Most.html')
-
-
-@app.route('/movie.html')
-def Movie():
-    return render_template('Movie.html')
-
-
-@app.route('/series.html')
-def Series():
-    return render_template('Series.html')
-
-
-# --- PROTECTED ANIME PAGES (Login Required) ---
-@app.route('/attack.html')
+# --- Favorites Routes (UPDATED for robustness) ---
+@app.route('/favorites/add', methods=['POST'])
 @login_required
-def Attack():
-    return render_template('Attack.html')
+def add_favorite():
+    data = request.get_json()
+    anime_title = data.get('title')
+    # This is now the static image FILENAME, e.g., 'attack.jpg'
+    anime_image_filename = data.get('image')
+    anime_url = data.get('url')
+
+    if not anime_title or not anime_image_filename or not anime_url:
+        return jsonify({'success': False, 'message': 'Missing anime data'}), 400
+
+    # Check if already favorited
+    existing = Favorite.query.filter_by(
+        user_id=session['user_id'],
+        anime_title=anime_title
+    ).first()
+
+    if existing:
+        return jsonify({'success': False, 'message': 'Already in favorites'}), 400
+
+    # --- FIX APPLIED HERE: CONSTRUCT THE CORRECT URL ---
+    # Construct the full static URL using the filename provided by JS
+    full_anime_image_url = url_for('static', filename=anime_image_filename)
 
 
-@app.route('/attack2.html')
+    # Add to favorites
+    new_favorite = Favorite(
+        user_id=session['user_id'],
+        anime_title=anime_title,
+        # Store the correct, accessible URL
+        anime_image=full_anime_image_url,
+        anime_url=anime_url
+    )
+    db.session.add(new_favorite)
+    db.session.commit()
+
+    return jsonify({'success': True, 'message': 'Added to favorites!'})
+
+
+@app.route('/favorites/remove', methods=['POST'])
 @login_required
-def Attack2():
-    return render_template('Attack2.html')
+def remove_favorite():
+    data = request.get_json()
+    anime_title = data.get('title')
+    favorite_id = data.get('id')  # New check for removal by ID (for Profile page)
+
+    favorite = None
+    if favorite_id:
+        # Removal from profile page by ID
+        favorite = Favorite.query.filter_by(id=favorite_id, user_id=session['user_id']).first()
+    elif anime_title:
+        # Removal from content page by title
+        favorite = Favorite.query.filter_by(user_id=session['user_id'], anime_title=anime_title).first()
+
+    if favorite:
+        db.session.delete(favorite)
+        db.session.commit()
+        return jsonify({'success': True, 'message': 'Removed from favorites!'})
+
+    return jsonify({'success': False, 'message': 'Not found in favorites'}), 404
 
 
-@app.route('/naruto.html')
+@app.route('/favorites/check/<path:title>')
 @login_required
-def Naruto():
-    return render_template('Naruto.html')
+def check_favorite(title):
+    favorite = Favorite.query.filter_by(
+        user_id=session['user_id'],
+        anime_title=title
+    ).first()
+    return jsonify({'is_favorite': favorite is not None})
 
 
-@app.route('/naruto2.html')
-@login_required
-def Naruto2():
-    return render_template('Naruto2.html')
+# --- Anime Content Routes (Login Required) (Unchanged) ---
+ANIME_ROUTES = {
+    'attack': 'Attack', 'attack2': 'Attack2',
+    'naruto': 'Naruto', 'naruto2': 'Naruto2',
+    'onepiece': 'OnePiece', 'onepiece2': 'OnePiece2',
+    'metal': 'Metal', 'metal2': 'Metal2',
+    'bleach': 'Bleach', 'bleach2': 'Bleach2',
+    'broly': 'Broly', 'demon': 'Demon', 'demon2': 'Demon2',
+    'mugen': 'Mugen', 'superhero': 'SuperHero'
+}
 
-
-@app.route('/onepiece.html')
-@login_required
-def OnePiece():
-    return render_template('OnePiece.html')
-
-
-@app.route('/onepiece2.html')
-@login_required
-def OnePiece2():
-    return render_template('OnePiece2.html')
-
-
-@app.route('/metal.html')
-@login_required
-def Metal():
-    return render_template('Metal.html')
-
-
-@app.route('/metal2.html')
-@login_required
-def Metal2():
-    return render_template('Metal2.html')
-
-
-@app.route('/bleach.html')
-@login_required
-def Bleach():
-    return render_template('Bleach.html')
-
-
-@app.route('/bleach2.html')
-@login_required
-def Bleach2():
-    return render_template('Bleach2.html')
-
-
-@app.route('/broly.html')
-@login_required
-def Broly():
-    return render_template('Broly.html')
-
-
-@app.route('/demon.html')
-@login_required
-def Demon():
-    return render_template('Demon.html')
-
-
-@app.route('/demon2.html')
-@login_required
-def Demon2():
-    return render_template('Demon2.html')
-
-
-@app.route('/mugen.html')
-@login_required
-def Mugen():
-    return render_template('Mugen.html')
-
-
-@app.route('/superhero.html')
-@login_required
-def SuperHero():
-    return render_template('SuperHero.html')
-
+# Dynamically create routes for all anime pages
+for route_name, template_name in ANIME_ROUTES.items():
+    app.add_url_rule(
+        f'/{route_name}.html',
+        endpoint=template_name,
+        view_func=login_required(
+            lambda t=template_name: render_template(f'{t}.html')
+        )
+    )
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0',port=5000, debug=True)
+    app.run(host='0.0.0.0', port=5000, debug=True)

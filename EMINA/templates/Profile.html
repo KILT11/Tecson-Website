@@ -6,14 +6,13 @@
     <title>EMINA - Profile</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='profile.css') }}">
+
 </head>
 <body>
-    <header id="top">
-        Welcome To The World EMINA
-    </header>
+    <header>Welcome To The World Of EMINA </header>
 
 
-    <div class="profile-container">
+    <div class="profile-container" data-remove-url="{{ url_for('remove_favorite', favorite_id='PLACEHOLDER') }}">
         <h2>Your Profile</h2>
 
         {% with messages = get_flashed_messages(with_categories=true) %}
@@ -24,7 +23,6 @@
             {% endif %}
         {% endwith %}
 
-        <!-- View Mode -->
         <div id="view-mode">
             <div class="profile-info">
                 <label>Name</label>
@@ -43,7 +41,6 @@
             </div>
         </div>
 
-        <!-- Edit Mode -->
         <div id="edit-mode">
             <form action="{{ url_for('update_profile') }}" method="POST">
                 <div class="profile-info">
@@ -59,7 +56,7 @@
 
                     <label for="new_password">New Password</label>
                     <input type="password" name="new_password" id="new_password" placeholder="Enter new password">
-                    <span class="password-hint">Leave blank if you don’t want to change your password.</span>
+                    <span class="password-hint">Leave blank if you don't want to change your password.</span>
 
                     <label for="confirm_password">Confirm New Password</label>
                     <input type="password" name="confirm_password" id="confirm_password" placeholder="Re-enter new password">
@@ -77,13 +74,44 @@
                 <button class="btn btn-danger" onclick="confirmDelete()">Delete My Account</button>
             </div>
         </div>
+
+        <div class="favorites-section">
+            <h3>⭐ My Favorite Anime ({{ favorites|length }})</h3>
+
+            {% if favorites %}
+                <div class="favorites-grid">
+                    {% for favorite in favorites %}
+                        <div class="favorite-item" id="favorite-{{ favorite.id }}">
+                            <a href="{{ favorite.anime_url }}">
+                                <img src="{{ favorite.anime_image }}" alt="{{ favorite.anime_title }}">
+                            </a>
+                            <a href="{{ favorite.anime_url }}">{{ favorite.anime_title }}</a>
+                            <div class="favorite-date">Added: {{ favorite.added_date.strftime('%b %d, %Y') }}</div>
+                            <button class="remove-favorite-btn"
+                                    data-title="{{ favorite.anime_title }}"
+                                    data-id="{{ favorite.id }}">
+                                🗑️ Remove
+                            </button>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <div class="no-favorites">
+                    <p>You haven't added any favorites yet!</p>
+                    <p><a href="{{ url_for('Home') }}">Browse anime and start adding favorites ➜</a></p>
+                </div>
+            {% endif %}
+        </div>
     </div>
 
+    <div class="notification" id="notification"></div>
+
     <footer>
-        @2025 EMINA, Dive into the vibrant world of Anime.
+        <strong>©2025 EMINA</strong> | Dive into the vibrant world of Anime | Made with ❤️ for Otakus
     </footer>
 
-    <script>
+
+ <script>
         function toggleEditMode() {
             const viewMode = document.getElementById('view-mode');
             const editMode = document.getElementById('edit-mode');
@@ -109,5 +137,6 @@
             }
         }
     </script>
+    <script src="{{ url_for('static', filename='favorates.js') }}"></script>
 </body>
 </html>
