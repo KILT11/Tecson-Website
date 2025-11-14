@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>EMINA</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
-     <link rel="stylesheet" href="{{ url_for('static', filename='ep.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='comments.css') }}">
 </head>
-<body>
+<body data-episode-id="bleach-1" data-user-id="{{ session.user_id }}">
     <header>
         Welcome To The World EMINA
     </header>
@@ -48,10 +48,41 @@
     </div>
     <h2>New Episode will be uploaded every week</h2>
 </section>
+ <section class="comments-section">
+        <div class="comments-header">
+            <h3>💬 Comments</h3>
+            <span class="comments-count" id="comments-count">0</span>
+        </div>
+
+        <!-- Comment Form -->
+        <form id="comment-form" class="comment-form">
+            <textarea
+                id="comment-textarea"
+                placeholder="Share your thoughts about this episode..."
+                maxlength="1000"
+            ></textarea>
+            <div class="comment-form-actions">
+                <span class="character-count" id="character-count">0/1000</span>
+                <button type="submit" id="submit-comment-btn" class="comment-btn">
+                    Post Comment
+                </button>
+            </div>
+        </form>
+
+        <!-- Comments List -->
+        <div id="comments-list" class="comments-list">
+            <div class="comments-loading">
+                <div class="loading-spinner"></div>
+                <p>Loading comments...</p>
+            </div>
+        </div>
+    </section>
 
     <footer>
-        @2025 EMINA, Dive into the vibrant world of Anime.
+        ©2025 EMINA, Dive into the vibrant world of Anime.
     </footer>
- <script src="{{ url_for('static', filename='search.js') }}"></script>
+
+    <script src="{{ url_for('static', filename='search.js') }}"></script>
+    <script src="{{ url_for('static', filename='comments.js') }}"></script>
 </body>
 </html>

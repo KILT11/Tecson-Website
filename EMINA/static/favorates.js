@@ -2,21 +2,20 @@
 (function() {
     'use strict';
 
-    // All anime data - must be kept in sync with the anime cards in your HTML
-    // NOTE: This list needs to include ALL anime titles and their paths across your pages.
+    // All anime data - URLs are now actual paths, not Flask template strings
     const animeData = [
-        // TV Series - FIX APPLIED: img value changed to filename only
-        { title: 'Attack on Titan', url: '{{ url_for("Attack") }}', img: 'attack.jpg' },
-        { title: 'Naruto', url: '{{ url_for("Naruto") }}', img: 'naruto.jpg' },
-        { title: 'One Piece', url: '{{ url_for("OnePiece") }}', img: 'One.jpg' },
-        { title: 'Demon Slayer', url: '{{ url_for("Demon") }}', img: 'demon.jpg' },
-        { title: 'Fullmetal Alchemist', url: '{{ url_for("Metal") }}', img: 'metal.jpg' },
-        { title: 'Bleach', url: '{{ url_for("Bleach") }}', img: 'bleach.jpg' },
-        // Movies
-        { title: 'Dragon Ball Super: Broly', url: '{{ url_for("Broly") }}', img: 'dragon.jpg' },
-        { title: 'Dragon Ball Super: Super Hero', url: '{{ url_for("SuperHero") }}', img: 'Drag.jpg' },
-        { title: 'Demon Slayer: Kimetsu no Yaiba - The Movie: Mugen Train', url: '{{ url_for("Mugen") }}', img: 'Mdemon.jpg' }
-        // Add all your anime here with their correct Flask routes
+        // TV Series
+        { title: 'Attack on Titan', url: '/attack.html', img: 'attack.jpg' },
+        { title: 'Naruto', url: '/naruto.html', img: 'naruto.jpg' },
+        { title: 'One Piece', url: '/onepiece.html', img: 'One.jpg' },
+        { title: 'Demon Slayer', url: '/demon.html', img: 'demon.jpg' },
+        { title: 'Fullmetal Alchemist', url: '/metal.html', img: 'metal.jpg' },
+        { title: 'Bleach', url: '/bleach.html', img: 'bleach.jpg' },
+
+        // Movies/Single Entry Episodes
+        { title: 'Dragon Ball Super: Broly', url: '/broly.html', img: 'dragon.jpg' },
+        { title: 'Dragon Ball Super: Super Hero', url: '/superhero.html', img: 'Drag.jpg' },
+        { title: 'Demon Slayer: Kimetsu no Yaiba - The Movie: Mugen Train', url: '/mugen.html', img: 'Mdemon.jpg' },
     ];
 
     // Notification helper

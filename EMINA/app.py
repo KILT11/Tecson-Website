@@ -21,6 +21,7 @@ class User(db.Model):
     email = db.Column(db.String(120), unique=True, nullable=False)
     password = db.Column(db.String(200), nullable=False)
     favorites = db.relationship('Favorite', backref='user', lazy=True, cascade='all, delete-orphan')
+    comments = db.relationship('Comment', backref='user', lazy=True, cascade='all, delete-orphan')
 
     def set_password(self, password):
         self.password = generate_password_hash(password)
@@ -34,12 +35,32 @@ class Favorite(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     anime_title = db.Column(db.String(200), nullable=False)
-    anime_image = db.Column(db.String(200), nullable=False)  # This now stores the full URL
+    anime_image = db.Column(db.String(200), nullable=False)
     anime_url = db.Column(db.String(200), nullable=False)
     added_date = db.Column(db.DateTime, default=datetime.utcnow)
 
-    # Ensure a user cannot favorite the same anime twice
     __table_args__ = (db.UniqueConstraint('user_id', 'anime_title', name='_user_anime_uc'),)
+
+
+# --- Comment Model ---
+class Comment(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    episode_id = db.Column(db.String(100), nullable=False)  # e.g., 'attack-1', 'naruto-1'
+    content = db.Column(db.Text, nullable=False)
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'user_name': self.user.name,
+            'user_id': self.user_id,
+            'content': self.content,
+            'created_at': self.created_at.strftime('%B %d, %Y at %I:%M %p'),
+            'updated_at': self.updated_at.strftime('%B %d, %Y at %I:%M %p'),
+            'is_edited': self.created_at != self.updated_at
+        }
 
 
 # --- Create tables ---
@@ -68,7 +89,7 @@ def get_favorite_titles():
     return []
 
 
-# --- Public Routes (Unchanged) ---
+# --- Public Routes ---
 @app.route('/')
 def index():
     return render_template('index.html')
@@ -79,7 +100,7 @@ def About():
     return render_template('About.html')
 
 
-# --- Updated Content Routes to pass favorites (UPDATED) ---
+# --- Content Routes ---
 @app.route('/most.html')
 @login_required
 def Most():
@@ -101,7 +122,7 @@ def Series():
     return render_template('Series.html', favorite_titles=favorite_titles)
 
 
-# --- Authentication Routes (Unchanged) ---
+# --- Authentication Routes ---
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     if request.method == 'POST':
@@ -160,11 +181,10 @@ def logout():
     return redirect(url_for('login'))
 
 
-# --- User Dashboard Routes (Home, Profile updated) ---
+# --- User Dashboard Routes ---
 @app.route('/home')
 @login_required
 def Home():
-    # Get user's favorite anime IDs for frontend checking
     favorite_titles = get_favorite_titles()
     return render_template('Home.html', name=session['user_name'], favorite_titles=favorite_titles)
 
@@ -173,7 +193,6 @@ def Home():
 @login_required
 def profile():
     user = User.query.get(session['user_id'])
-    # Fetch favorites with all details, ordered by date
     favorites = Favorite.query.filter_by(user_id=session['user_id']).order_by(Favorite.added_date.desc()).all()
     return render_template('profile.html', user=user, favorites=favorites)
 
@@ -218,20 +237,18 @@ def delete_account():
     return redirect(url_for('index'))
 
 
-# --- Favorites Routes (UPDATED for robustness) ---
+# --- Favorites Routes ---
 @app.route('/favorites/add', methods=['POST'])
 @login_required
 def add_favorite():
     data = request.get_json()
     anime_title = data.get('title')
-    # This is now the static image FILENAME, e.g., 'attack.jpg'
     anime_image_filename = data.get('image')
     anime_url = data.get('url')
 
     if not anime_title or not anime_image_filename or not anime_url:
         return jsonify({'success': False, 'message': 'Missing anime data'}), 400
 
-    # Check if already favorited
     existing = Favorite.query.filter_by(
         user_id=session['user_id'],
         anime_title=anime_title
@@ -240,16 +257,11 @@ def add_favorite():
     if existing:
         return jsonify({'success': False, 'message': 'Already in favorites'}), 400
 
-    # --- FIX APPLIED HERE: CONSTRUCT THE CORRECT URL ---
-    # Construct the full static URL using the filename provided by JS
     full_anime_image_url = url_for('static', filename=anime_image_filename)
 
-
-    # Add to favorites
     new_favorite = Favorite(
         user_id=session['user_id'],
         anime_title=anime_title,
-        # Store the correct, accessible URL
         anime_image=full_anime_image_url,
         anime_url=anime_url
     )
@@ -264,14 +276,12 @@ def add_favorite():
 def remove_favorite():
     data = request.get_json()
     anime_title = data.get('title')
-    favorite_id = data.get('id')  # New check for removal by ID (for Profile page)
+    favorite_id = data.get('id')
 
     favorite = None
     if favorite_id:
-        # Removal from profile page by ID
         favorite = Favorite.query.filter_by(id=favorite_id, user_id=session['user_id']).first()
     elif anime_title:
-        # Removal from content page by title
         favorite = Favorite.query.filter_by(user_id=session['user_id'], anime_title=anime_title).first()
 
     if favorite:
@@ -292,7 +302,95 @@ def check_favorite(title):
     return jsonify({'is_favorite': favorite is not None})
 
 
-# --- Anime Content Routes (Login Required) (Unchanged) ---
+# --- Comment Routes ---
+@app.route('/api/comments/<episode_id>', methods=['GET'])
+@login_required
+def get_comments(episode_id):
+    """Get all comments for a specific episode"""
+    comments = Comment.query.filter_by(episode_id=episode_id).order_by(Comment.created_at.desc()).all()
+    return jsonify({
+        'success': True,
+        'comments': [comment.to_dict() for comment in comments]
+    })
+
+
+@app.route('/api/comments/<episode_id>', methods=['POST'])
+@login_required
+def add_comment(episode_id):
+    """Add a new comment to an episode"""
+    data = request.get_json()
+    content = data.get('content', '').strip()
+
+    if not content:
+        return jsonify({'success': False, 'message': 'Comment cannot be empty'}), 400
+
+    if len(content) > 1000:
+        return jsonify({'success': False, 'message': 'Comment is too long (max 1000 characters)'}), 400
+
+    new_comment = Comment(
+        user_id=session['user_id'],
+        episode_id=episode_id,
+        content=content
+    )
+
+    db.session.add(new_comment)
+    db.session.commit()
+
+    return jsonify({
+        'success': True,
+        'message': 'Comment added successfully!',
+        'comment': new_comment.to_dict()
+    })
+
+
+@app.route('/api/comments/<int:comment_id>', methods=['PUT'])
+@login_required
+def edit_comment(comment_id):
+    """Edit an existing comment"""
+    comment = Comment.query.get_or_404(comment_id)
+
+    if comment.user_id != session['user_id']:
+        return jsonify({'success': False, 'message': 'Unauthorized'}), 403
+
+    data = request.get_json()
+    content = data.get('content', '').strip()
+
+    if not content:
+        return jsonify({'success': False, 'message': 'Comment cannot be empty'}), 400
+
+    if len(content) > 1000:
+        return jsonify({'success': False, 'message': 'Comment is too long (max 1000 characters)'}), 400
+
+    comment.content = content
+    comment.updated_at = datetime.utcnow()
+    db.session.commit()
+
+    return jsonify({
+        'success': True,
+        'message': 'Comment updated successfully!',
+        'comment': comment.to_dict()
+    })
+
+
+@app.route('/api/comments/<int:comment_id>', methods=['DELETE'])
+@login_required
+def delete_comment(comment_id):
+    """Delete a comment"""
+    comment = Comment.query.get_or_404(comment_id)
+
+    if comment.user_id != session['user_id']:
+        return jsonify({'success': False, 'message': 'Unauthorized'}), 403
+
+    db.session.delete(comment)
+    db.session.commit()
+
+    return jsonify({
+        'success': True,
+        'message': 'Comment deleted successfully!'
+    })
+
+
+# --- Anime Content Routes ---
 ANIME_ROUTES = {
     'attack': 'Attack', 'attack2': 'Attack2',
     'naruto': 'Naruto', 'naruto2': 'Naruto2',
