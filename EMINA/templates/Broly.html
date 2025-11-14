@@ -6,6 +6,7 @@
     <title>EMINA</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='comments.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='layout.css') }}">
 </head>
 <body data-episode-id="broly-1" data-user-id="{{ session.user_id }}">
     <header>
@@ -33,22 +34,22 @@
         <h2>Dragon Ball Super: Broly</h2>
     <section>
         <h2>Episdoe 1: Broly</h2>
-       <p> Broly, making him a canonical character in the Dragon Ball universe. The film delves into the history of the Saiyans,
-        revealing that King Vegeta, fearing Broly's immense power, exiles him to Planet Vampa. Years later, Frieza learns of Broly
-        and his father, Paragus, and recruits them to defeat Goku and Vegeta. Cheelai and Lemo, members of Frieza's army, befriend
-        Broly and steal the remote that Paragus uses to control him. Goku and Vegeta encounter Broly, and a fierce battle ensues.
-        Broly's power and adaptability prove to be a significant challenge, even for Goku and Vegeta in their Super Saiyan God and
-        Super Saiyan Blue forms. To counter Broly's overwhelming strength, Goku and Vegeta attempt fusion, eventually becoming Gogeta.
-        Gogeta and Broly engage in a次元-shattering battle, with Gogeta ultimately overpowering Broly. However, before Gogeta can
-        deliver a final blow, Cheelai and Lemo use the Dragon Balls to wish Broly back to Vampa. In the aftermath, Goku visits Broly
-        on Vampa, expressing his desire to train with him and help him control his power.</p>
-    </section>
-   <section>
-        <h2>Episode</h2>
-        <div class="episode-grid">
-        <a href="{{ url_for('Broly') }}" class="episode">E1</a>
+       <div>
+        <!-- Video on the left -->
+        <video width="640" height="360" controls>
+            <source src="{{ url_for('static', filename='Broly.mp4') }}" type="video/mp4">
+        </video>
+
+        <!-- Episodes on the right -->
+        <div class="episode-container">
+            <h2>Episode</h2>
+            <div class="episode-grid">
+               <a href="{{ url_for('Broly') }}" class="episode">E1</a>
+            </div>
+        </div>
     </div>
-</section>
+    </section>
+
 <section class="comments-section">
         <div class="comments-header">
             <h3>💬 Comments</h3>

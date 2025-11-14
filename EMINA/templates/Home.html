@@ -5,77 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EMINA - Home</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
-    <style>
-        /* Favorite Button Styles */
-        .favorite-btn {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background: rgba(255, 0, 0, 0.8);
-            border: none;
-            color: white;
-            font-size: 24px;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease;
-            z-index: 10;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
-        }
-
-        .favorite-btn:hover {
-            transform: scale(1.1);
-            background: rgba(255, 0, 0, 1);
-            box-shadow: 0 4px 15px rgba(255, 0, 0, 0.6);
-        }
-
-        .favorite-btn.favorited {
-            background: rgba(255, 215, 0, 0.9);
-            color: #ff0000;
-        }
-
-        .favorite-btn.favorited:hover {
-            background: rgba(255, 215, 0, 1);
-        }
-
-        .anime-grid-item {
-            position: relative;
-        }
-
-        /* Notification Styles */
-        .notification {
-            position: fixed;
-            top: 100px;
-            right: 20px;
-            background: linear-gradient(135deg, #ff0000, #cc0000);
-            color: white;
-            padding: 15px 25px;
-            border-radius: 10px;
-            box-shadow: 0 4px 20px rgba(255, 0, 0, 0.5);
-            z-index: 1000;
-            animation: slideIn 0.3s ease;
-            display: none;
-        }
-
-        .notification.show {
-            display: block;
-        }
-
-        @keyframes slideIn {
-            from {
-                transform: translateX(400px);
-                opacity: 0;
-            }
-            to {
-                transform: translateX(0);
-                opacity: 1;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="{{ url_for('static', filename='favorate.css') }}">
 </head>
 <body>
     <header id="top">

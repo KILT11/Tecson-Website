@@ -6,6 +6,7 @@
     <title>EMINA</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='comments.css') }}">
+     <link rel="stylesheet" href="{{ url_for('static', filename='layout.css') }}">
 </head>
 <body data-episode-id="metal-1" data-user-id="{{ session.user_id }}">
     <header>
@@ -33,21 +34,24 @@
         <h2>Fullmetal Alchemist</h2>
     <section>
         <h2>Episode 1: Those Who Challenge the Sun</h2>
-       <p>Elric brothers, Edward and Alphonse, as they attempt a forbidden alchemical ritual: human transmutation.
-        Driven by their desire to resurrect their deceased mother, Trisha, the brothers tragically fail, resulting
-        in severe consequences. Edward loses his left leg, and Alphonse loses his entire body, his soul bound to a
-        suit of armor by Edward's sacrifice of his right arm. This devastating experience sets the stage for their
-        journey to uncover the secrets of the Philosopher's Stone, hoping it will restore their bodies and undo
-        the damage caused by their alchemical transgression.</p>
-    </section>
-   <section>
-        <h2>Episode</h2>
-        <div class="episode-grid">
-        <a href="{{ url_for('Metal') }}" class="episode">E1</a>
-        <a href="{{ url_for('Metal2') }}" class="episode">E2</a>
+      <div>
+        <!-- Video on the left -->
+        <video width="640" height="360" controls>
+            <source src="{{ url_for('static', filename='Metal1.mp4') }}" type="video/mp4">
+        </video>
+
+        <!-- Episodes on the right -->
+        <div class="episode-container">
+            <h2>Episode</h2>
+            <div class="episode-grid">
+                 <a href="{{ url_for('Metal') }}" class="episode">E1</a>
+                <a href="{{ url_for('Metal2') }}" class="episode">E2</a>
+            </div>
+            <h2>New Episode will be uploaded every week</h2>
+        </div>
     </div>
-             <h2>New Episode will be uploaded every week</h2>
     </section>
+
 <section class="comments-section">
         <div class="comments-header">
             <h3>💬 Comments</h3>

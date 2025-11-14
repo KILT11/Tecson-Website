@@ -1,0 +1,105 @@
+/* Video and Episode Side-by-Side Layout */
+section {
+    padding: 30px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    margin: 20px auto;
+    max-width: 80%;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+/* Container for video and episodes */
+section > div {
+    display: flex;
+    gap: 30px;
+    align-items: flex-start;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+/* Video styling */
+section video {
+    max-width: 640px;
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Episode section on the right */
+.episode-container {
+    flex: 0 0 250px;
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.episode-container h2 {
+    color: orangered;
+    font-size: 24px;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.episode-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.episode {
+    background-color: #333;
+    color: #eee;
+    text-decoration: none;
+    padding: 15px 0;
+    border-radius: 8px;
+    font-size: 18px;
+    font-weight: bold;
+    transition: 0.3s;
+    text-align: center;
+    display: block;
+}
+
+.episode:hover {
+    background-color: orangered;
+    color: white;
+    transform: translateY(-2px);
+}
+
+.episode.active {
+    background-color: deepskyblue;
+    color: black;
+}
+
+/* Episode info text */
+.episode-container h2:last-child {
+    font-size: 16px;
+    color: tomato;
+    margin-top: 15px;
+}
+
+/* Responsive - stack on smaller screens */
+@media (max-width: 968px) {
+    section > div {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .episode-container {
+        flex: 1;
+        width: 100%;
+        max-width: 500px;
+    }
+
+    .episode-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    .episode-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}

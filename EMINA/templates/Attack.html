@@ -6,6 +6,7 @@
     <title>EMINA - Attack on Titan Episode 1</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='comments.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='layout.css') }}">
 </head>
 <body data-episode-id="attack-1" data-user-id="{{ session.user_id }}">
     <header>
@@ -40,19 +41,24 @@
     <h2>Attack On Titan</h2>
     <section>
         <h2>Episode 1: To You, in 2000 Years: The Fall of Shiganshina, Part 1</h2>
-        <p>Eren Jaeger, his adoptive sister Mikasa Ackerman, and their friend Armin Arlert, living in the town of Shiganshina, located within Wall Maria. The episode establishes the world where humanity resides within giant walls to protect themselves from Titans, giant humanoid creatures that devour humans.
+<div>
+        <!-- Video on the left -->
+        <video width="640" height="360" controls>
+            <source src="{{ url_for('static', filename='Attack1.mp4') }}" type="video/mp4">
+        </video>
 
-The episode takes a dramatic turn when the Colossal Titan suddenly appears, breaching Wall Maria and allowing other Titans to enter. During the chaos, Eren witnesses his mother being eaten by a Titan. This horrific event fuels Eren's rage and desire for revenge against the Titans, setting the stage for the series' main conflict.</p>
-    </section>
-
-    <section>
-        <h2>Episode</h2>
-        <div class="episode-grid">
-            <a href="{{ url_for('Attack') }}" class="episode">E1</a>
-            <a href="{{ url_for('Attack2') }}" class="episode">E2</a>
+        <!-- Episodes on the right -->
+        <div class="episode-container">
+            <h2>Episode</h2>
+            <div class="episode-grid">
+                <a href="{{ url_for('Attack') }}" class="episode">E1</a>
+                <a href="{{ url_for('Attack2') }}" class="episode">E2</a>
+            </div>
+            <h2>New Episode will be uploaded every week</h2>
         </div>
-        <h2>New Episode will be uploaded every week</h2>
+    </div>
     </section>
+
 
     <!-- Comment Section -->
     <section class="comments-section">

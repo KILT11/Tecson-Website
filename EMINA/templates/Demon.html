@@ -6,6 +6,7 @@
     <title>EMINA</title>
         <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='comments.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='layout.css') }}">
 </head>
 <body data-episode-id="demon-1" data-user-id="{{ session.user_id }}">
     <header>
@@ -33,18 +34,22 @@
         <h2>Demon Slayer</h2>
     <section>
         <h2>Episode 1: Cruelty</h2>
+       <div>
+        <!-- Video on the left -->
         <video width="640" height="360" controls>
-  <source src="{{ url_for('static', filename='infi.mp4') }}" type="video/mp4">
-  Your browser does not support the video tag.
-</video>
-    </section>
-     <section>
-        <h2>Episode</h2>
-        <div class="episode-grid">
-        <a href="{{ url_for('Demon') }}" class="episode">E1</a>
-        <a href="{{ url_for('Demon2') }}" class="episode">E2</a>
+            <source src="{{ url_for('static', filename='Demon1.mp4') }}" type="video/mp4">
+        </video>
+
+        <!-- Episodes on the right -->
+        <div class="episode-container">
+            <h2>Episode</h2>
+            <div class="episode-grid">
+               <a href="{{ url_for('Demon') }}" class="episode">E1</a>
+              <a href="{{ url_for('Demon2') }}" class="episode">E2</a>
+            </div>
+            <h2>New Episode will be uploaded every week</h2>
+        </div>
     </div>
-             <h2>New Episode will be uploaded every week</h2>
     </section>
 
 <section class="comments-section">

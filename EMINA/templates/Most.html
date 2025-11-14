@@ -5,69 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EMINA - Most Popular</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
-    <style>
-        .favorite-btn {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background: rgba(255, 0, 0, 0.8);
-            border: none;
-            color: white;
-            font-size: 24px;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease;
-            z-index: 10;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
-            line-height: 0;
-        }
-
-        .favorite-btn:hover {
-            transform: scale(1.1);
-            background: rgba(255, 0, 0, 1);
-            box-shadow: 0 4px 15px rgba(255, 0, 0, 0.8);
-        }
-
-        .favorite-btn.favorited {
-            background: rgba(255, 193, 7, 0.9); /* Star color */
-            color: #111;
-        }
-
-        .favorite-btn.favorited:hover {
-            background: #ffc107;
-        }
-
-        .anime-grid-item {
-            position: relative; /* Crucial for positioning the button */
-        }
-
-        .notification {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            padding: 15px 25px;
-            border-radius: 8px;
-            color: white;
-            font-weight: bold;
-            z-index: 1000;
-            opacity: 0;
-            transition: opacity 0.5s ease;
-            display: none;
-        }
-
-        .notification.success {
-            background-color: #4CAF50;
-        }
-
-        .notification.error {
-            background-color: #f44336;
-        }
-    </style>
+    <link rel="stylesheet" href="{{ url_for('static', filename='favorate.css') }}">
 </head>
 <body>
     <header>

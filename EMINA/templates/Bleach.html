@@ -6,6 +6,7 @@
     <title>EMINA</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='comments.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='layout.css') }}">
 </head>
 <body data-episode-id="bleach-1" data-user-id="{{ session.user_id }}">
     <header>
@@ -33,21 +34,23 @@
         <h2>Bleach</h2>
     <section>
         <h2>Episode 1: The Day I Became a Shinigami</h2>
-       <p> Ichigo Kurosaki, a 15-year-old with the ability to see ghosts. His life takes a dramatic turn when he encounters
-            Rukia Kuchiki, a Soul Reaper, who is injured while battling a Hollow, a monstrous spirit that devours souls.
-            To save his family and defeat the Hollow, Ichigo reluctantly accepts Rukia's offer to temporarily take on her
-            Soul Reaper powers. In the process, he unexpectedly absorbs almost all of her spiritual energy, transforming
-            him into a powerful, albeit substitute, Soul Reaper. The episode concludes with Ichigo defeating the Hollow
-            and beginning his unexpected journey into the world of Soul Reapers and the supernatural.</p>
-    </section>
-<section>
-        <h2>Episode</h2>
-        <div class="episode-grid">
-        <a href="{{ url_for('Bleach') }}" class="episode">E1</a>
-        <a href="{{ url_for('Bleach2') }}" class="episode">E2</a>
+        <div>
+        <!-- Video on the left -->
+        <video width="640" height="360" controls>
+            <source src="{{ url_for('static', filename='Bleach1.mp4') }}" type="video/mp4">
+        </video>
+
+        <!-- Episodes on the right -->
+        <div class="episode-container">
+            <h2>Episode</h2>
+            <div class="episode-grid">
+                <a href="{{ url_for('Bleach') }}" class="episode">E1</a>
+                <a href="{{ url_for('Bleach2') }}" class="episode">E2</a>
+            </div>
+            <h2>New Episode will be uploaded every week</h2>
+        </div>
     </div>
-    <h2>New Episode will be uploaded every week</h2>
-</section>
+    </section>
  <section class="comments-section">
         <div class="comments-header">
             <h3>💬 Comments</h3>

@@ -3,12 +3,11 @@ from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
 from functools import wraps
 from datetime import datetime
-
 # --- Initialize Flask app ---
 app = Flask(__name__)
 app.secret_key = 'anime_emina'  # Change to secure random key in production
 
-# --- Database Configuration ---
+# --- Database Configuration ---pip install Flask Flask-SQLAlchemy
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///eminauser.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
